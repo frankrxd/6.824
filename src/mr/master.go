@@ -6,10 +6,35 @@ import "os"
 import "net/rpc"
 import "net/http"
 
+type TaskStateType int
+const (
+	TASK_MAP_FINISHED TaskStateType = 0
+	TASK_MAP_FAILD TaskStateType = -1
+	TASK_MAP_UNTREATED TaskStateType = 1
+
+	TASK_REDUCE_FINISHED TaskStateType = 0
+	TASK_REDUCE_FAILD TaskStateType = -1
+	TASK_REDUCE_UNTREATED TaskStateType = 1
+)
 
 type Master struct {
 	// Your definitions here.
+	workers []WorkerInfo
+	tasks []PendingMapTaskInfo
+	task []PendingReduceTaskInfo
+}
 
+type WorkerInfo struct {
+
+}
+
+type PendingMapTaskInfo struct {
+	State TaskStateType
+	Direction string
+}
+type PendingReduceTaskInfo struct {
+	State TaskStateType
+	Direction string
 }
 
 // Your code here -- RPC handlers for the worker to call.
