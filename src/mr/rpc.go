@@ -32,5 +32,6 @@ type ExampleReply struct {
 func masterSock() string {
 	s := "/var/tmp/824-mr-"
 	s += strconv.Itoa(os.Getuid())
+	//println(s)
 	return s
 }

@@ -51,8 +51,7 @@ func main() {
 		file.Close()
 
 		kva := mapf(filename, string(content))
-		println(filename)
-		//fmt.Println(kva)
+		//println(filename)
 		intermediate = append(intermediate, kva...)
 	}
 

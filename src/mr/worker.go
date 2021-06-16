@@ -1,6 +1,12 @@
 package mr
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"os"
+	"sort"
+)
 import "log"
 import "net/rpc"
 import "hash/fnv"
@@ -15,7 +21,7 @@ type KeyValue struct {
 }
 
 //
-// use ihash(key) % NReduce to choose the reduce
+// use ihash(key) % NTotal to choose the reduce
 // task number for each KeyValue emitted by Map.
 //
 func ihash(key string) int {
@@ -24,18 +30,106 @@ func ihash(key string) int {
 	return int(h.Sum32() & 0x7fffffff)
 }
 
-
 //
 // main/mrworker.go calls this function.
 //
+func doMapTask(mapf func(string, string) []KeyValue) {
+	var reply TaskReply
+	call("Master.GetMapTask","",&reply)
+	log.Println("doMapTask")
+	for _,filename := range reply.Path {
+		file, err := os.Open(filename)
+		if err != nil {
+			log.Fatalf("cannot open %v", reply)
+		}
+		content, err := ioutil.ReadAll(file)
+		if err != nil {
+			log.Fatalf("cannot read %v", reply)
+		}
+		file.Close()
+
+		kva := mapf(filename, string(content))
+		var jsonec []*json.Encoder
+		var files []*os.File
+		for i:=0;i<reply.NTotal;i++ {
+			file,_:=os.OpenFile(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,i),os.O_RDWR|os.O_CREATE, 0755)
+
+			files = append(files,file)
+			jsonec = append(jsonec,json.NewEncoder(file))
+		}
+
+		for _,kv := range kva {
+			//fmt.Println(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,ihash(kv.Key)%reply.NTotal))
+			jsonec[ihash(kv.Key)%reply.NTotal].Encode(&kv)
+		}
+		for i:=0;i<reply.NTotal;i++ {
+			//fmt.Println(files[i].Name())
+			files[i].Close()
+		}
+	}
+	var tmp string
+	call("Master.CurMapTaskDone",&reply.CurTaskId,&tmp)
+}
+
+
+func doReduceTask(reducef func(string, []string) string) {
+	var reply TaskReply
+	call("Master.GetReduceTask","",&reply)
+	log.Println("doReduceTask")
+	intermediate := []KeyValue{}
+	for _, filename := range reply.Path {
+		file, err := os.Open(filename)
+		if err != nil {
+			log.Fatalf("cannot open %v", filename)
+		}
+		dec := json.NewDecoder(file)
+		for {
+			var kv KeyValue
+			if err := dec.Decode(&kv); err != nil {
+				break
+			}
+			intermediate = append(intermediate, kv)
+		}
+		file.Close()
+	}
+	sort.Sort(ByKey(intermediate))
+	ofile, _ := os.Create(fmt.Sprintf("mr-out-%v", reply.CurTaskId))
+	i := 0
+	for i < len(intermediate) {
+		j := i + 1
+		for j < len(intermediate) && intermediate[j].Key == intermediate[i].Key {
+			j++
+		}
+		values := []string{}
+		for k := i; k < j; k++ {
+			values = append(values, intermediate[k].Value)
+		}
+		output := reducef(intermediate[i].Key, values)
+		// this is the correct format for each line of Reduce output.
+		fmt.Fprintf(ofile, "%v %v\n", intermediate[i].Key, output)
+		i = j
+	}
+	ofile.Close()
+	var tmp string
+	call("Master.CurReduceTaskDone",&reply.CurTaskId,&tmp)
+}
+
+
 func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
 
 	// Your worker implementation here.
 
 	// uncomment to send the Example RPC to the master.
-	//CallExample
-
+	reply := StateReply{false,false}
+	for reply.MapTaskFinished == false {
+		doMapTask(mapf)
+		call("Master.GetCurState","",&reply)
+	}
+	for reply.ReduceTaskFinished == false {
+		doReduceTask(reducef)
+		call("Master.GetCurState","",&reply)
+	}
 }
 
 //
