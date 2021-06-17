@@ -1,10 +1,10 @@
 package mr
 
 import (
+	"errors"
 	"fmt"
 	"log"
 	"sync"
-	"sync/atomic"
 	"time"
 )
 import "net"
@@ -14,8 +14,6 @@ import "net/http"
 
 type TaskStateType int
 type WorkerStateType int
-
-
 
 const (
 	TASK_MAP_FINISHED  TaskStateType = 0
@@ -37,19 +35,21 @@ const (
 
 type Master struct {
 	// Your definitions here.
-	workers              []WorkerInfo
-	maptasks             []MapTaskInfo
-	reducetasks          []ShuffleTidyTaskInfo
-	DoneMapChan          []chan bool
-	DoneReduceChan       []chan bool
-	MapChan              chan int
-	ReduceChan           chan int
-	DoneTotalMapChan     chan bool
-	DoneTotalReduceChan  chan bool
-	TotalDoneMapCount    int32
-	TotalDoneReduceCount int32
-	nMap                 int
-	nReduce              int
+	workers             []WorkerInfo
+	maptasks            []MapTaskInfo
+	reducetasks         []ShuffleTidyTaskInfo
+	DoneMapChan         []chan bool
+	DoneReduceChan      []chan bool
+	MapChan             chan int
+	ReduceChan          chan int
+	DoneTotalMapChan    chan bool
+	DoneTotalReduceChan chan bool
+	FinishedMap         map[int]bool
+	FinishedReduce      map[int]bool
+	nMap                int
+	nReduce             int
+	mutexMap			sync.Mutex
+	mutexReduce			sync.Mutex
 }
 
 type WorkerInfo struct {
@@ -99,25 +99,28 @@ func (m *Master) MapProducer(taskid int) {
 }
 
 func (m *Master) ReduceProducer(taskid int) {
-	log.Println("ReduceProduce task : ", taskid)
+	log.Println("ReduceProduce task :", taskid)
 	m.ReduceChan <- taskid
 }
 
-func (m *Master) MapConsumer(taskid *int) {
-	*taskid = <-m.MapChan
+func (m *Master) MapConsumer(taskid *int) bool{
+	var ok bool
+	*taskid, ok = <-m.MapChan
+	if ok == false {
+		return false
+	}
 	log.Println("MapConsume task : ", *taskid)
 	go func() {
 		for {
 			select {
 			case <-m.DoneMapChan[*taskid]:
 				{
-					log.Printf("Map Task %v has done!", *taskid)
-					close(m.DoneMapChan[*taskid])
+					log.Println("MapTask has done :", *taskid)
 					return
 				}
 			case <-time.After(10 * time.Second):
 				{
-					log.Printf("Map Task %v timeout!", *taskid)
+					log.Println("MapTask timeout :", *taskid)
 					m.MapProducer(*taskid)
 					return
 					//将此maptask加到MapProduce中
@@ -125,23 +128,28 @@ func (m *Master) MapConsumer(taskid *int) {
 			}
 		}
 	}()
+	return true
 }
 
-func (m *Master) ReduceConsumer(taskid *int) {
-	*taskid = <-m.ReduceChan
+func (m *Master) ReduceConsumer(taskid *int) bool{
+	var ok bool
+	*taskid, ok = <-m.ReduceChan
+	if ok == false {
+		return false
+	}
 	log.Println("ReduceConsume task :", *taskid)
 	go func() {
 		for {
 			select {
 			case <-m.DoneReduceChan[*taskid]:
 				{
-					log.Printf("Reduce Task %v has done!", *taskid)
+					log.Println("ReduceTask has done :", *taskid)
 					close(m.DoneReduceChan[*taskid])
 					return
 				}
 			case <-time.After(10 * time.Second):
 				{
-					log.Printf("Reduce Task %v timeout!", *taskid)
+					log.Println("ReduceTask timeout :", *taskid)
 					m.ReduceProducer(*taskid)
 					return
 					//将此maptask加到MapProduce中
@@ -149,11 +157,14 @@ func (m *Master) ReduceConsumer(taskid *int) {
 			}
 		}
 	}()
+	return true
 }
 
 func (m *Master) ProduceReduceTask() {
 	go func() {
 		<-m.DoneTotalMapChan //Map任务完成
+		close(m.DoneTotalMapChan)
+		close(m.MapChan)
 		log.Println("Map task has finished!")
 		for i := 0; i < m.nReduce; i++ {
 			go m.ReduceProducer(i)
@@ -163,28 +174,33 @@ func (m *Master) ProduceReduceTask() {
 
 func (m *Master) CurReduceTaskDone(args *int, reply *string) error {
 	m.DoneReduceChan[*args] <- true
-	m.TotalDoneReduceCount = atomic.AddInt32(&m.TotalDoneReduceCount, 1)
-	if int(m.TotalDoneReduceCount) == m.nReduce {
+	m.mutexReduce.Lock()
+	m.FinishedReduce[*args] = true
+	if len(m.FinishedReduce) == m.nReduce {
 		m.DoneTotalReduceChan <- true
 	}
+	m.mutexReduce.Unlock()
 	return nil
 }
 
 func (m *Master) CurMapTaskDone(args *int, reply *string) error {
 	m.DoneMapChan[*args] <- true
-	m.TotalDoneMapCount = atomic.AddInt32(&m.TotalDoneMapCount, 1)
-	//log.Println("TotalDoneMapCount :",m.TotalDoneMapCount)
-	if int(m.TotalDoneMapCount) == m.nMap {
+	m.mutexMap.Lock()
+	m.FinishedMap[*args] = true
+	if len(m.FinishedMap) == m.nMap {
 		m.DoneTotalMapChan <- true
 	}
+	m.mutexMap.Unlock()
 	return nil
 }
 
 func (m *Master) GetReduceTask(args *string, reply *TaskReply) error {
 	mutex := sync.Mutex{}
 	//log.Println("rpc GetReduceTask start")
-	var taskid int = 0
-	m.ReduceConsumer(&taskid)
+	var taskid int
+	if m.ReduceConsumer(&taskid) == false {
+		return errors.New("ReduceChan has closed")
+	}
 	//log.Println("ReduceConsumer get taskid :", taskid)
 	mutex.Lock()
 	m.reducetasks[taskid].State = TASK_REDUCE_DOING
@@ -201,7 +217,9 @@ func (m *Master) GetMapTask(args *string, reply *TaskReply) error {
 	mutex := sync.Mutex{}
 	//log.Println("rpc GetMapTask start")
 	var taskid int = 0
-	m.MapConsumer(&taskid)
+	if m.MapConsumer(&taskid) == false {
+		return errors.New("MapChan has closed")
+	}
 	//log.Println("MapConsumer get taskid :", taskid)
 	mutex.Lock()
 	m.maptasks[taskid].State = TASK_MAP_DOING
@@ -215,18 +233,19 @@ func (m *Master) GetMapTask(args *string, reply *TaskReply) error {
 }
 
 type StateReply struct {
-	MapTaskFinished bool
+	MapTaskFinished    bool
 	ReduceTaskFinished bool
 }
+
 func (m *Master) GetCurState(args *string, reply *StateReply) error {
 	mutex := sync.Mutex{}
 	mutex.Lock()
-	if int(m.TotalDoneMapCount) < m.nMap {
+	if len(m.FinishedMap) < m.nMap {
 		(*reply).MapTaskFinished = false
 	} else {
 		(*reply).MapTaskFinished = true
 	}
-	if int(m.TotalDoneReduceCount) < m.nReduce {
+	if len(m.FinishedReduce) < m.nReduce {
 		(*reply).ReduceTaskFinished = false
 	} else {
 		(*reply).ReduceTaskFinished = true
@@ -258,14 +277,10 @@ func (m *Master) server() {
 //
 func (m *Master) Done() bool {
 	ret := false
-	<-m.DoneTotalReduceChan
+	<-m.DoneTotalReduceChan //Reduce任务完成
+	close(m.DoneTotalReduceChan)
+	close(m.ReduceChan)
 	ret = true
-	//select {
-	//case <-m.DoneTotalReduceChan: {
-	//	log.Println("Reduce task has finished!")
-	//	close(m.DoneTotalReduceChan)
-	//
-	//}
 	// Your code here.
 	return ret
 }
@@ -278,15 +293,17 @@ func (m *Master) Done() bool {
 func MakeMaster(files []string, nReduce int) *Master {
 	m := Master{}
 	m.nReduce = nReduce
-	m.MapChan = make(chan int)
-	m.ReduceChan = make(chan int)
+	m.nMap = len(os.Args[1:])
+	m.MapChan = make(chan int,m.nMap)
+	m.ReduceChan = make(chan int,m.nReduce)
 	m.DoneTotalMapChan = make(chan bool)
 	m.DoneTotalReduceChan = make(chan bool)
-	m.TotalDoneMapCount = 0
-	m.TotalDoneReduceCount = 0
+	m.FinishedMap = make(map[int]bool)
+	m.FinishedReduce = make(map[int]bool)
+
 	// Your code here.
 	// init m.maptasks // init m.DoneMapChan
-	m.nMap = len(os.Args[1:])
+
 	//log.Print(m.nMap)
 	for i := 0; i < m.nMap; i++ {
 		m.DoneMapChan = append(m.DoneMapChan, make(chan bool))

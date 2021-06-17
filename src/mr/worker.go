@@ -35,8 +35,10 @@ func ihash(key string) int {
 //
 func doMapTask(mapf func(string, string) []KeyValue) {
 	var reply TaskReply
-	call("Master.GetMapTask","",&reply)
-	log.Println("doMapTask")
+	if call("Master.GetMapTask","",&reply) == false {
+		return
+	}
+	log.Println("doMapTask :",reply.CurTaskId)
 	for _,filename := range reply.Path {
 		file, err := os.Open(filename)
 		if err != nil {
@@ -74,8 +76,10 @@ func doMapTask(mapf func(string, string) []KeyValue) {
 
 func doReduceTask(reducef func(string, []string) string) {
 	var reply TaskReply
-	call("Master.GetReduceTask","",&reply)
-	log.Println("doReduceTask")
+	if call("Master.GetReduceTask","",&reply) == false {
+		return
+	}
+	log.Println("doReduceTask :",reply.CurTaskId)
 	intermediate := []KeyValue{}
 	for _, filename := range reply.Path {
 		file, err := os.Open(filename)
@@ -122,10 +126,12 @@ func Worker(mapf func(string, string) []KeyValue,
 
 	// uncomment to send the Example RPC to the master.
 	reply := StateReply{false,false}
+	call("Master.GetCurState","",&reply)
 	for reply.MapTaskFinished == false {
 		doMapTask(mapf)
 		call("Master.GetCurState","",&reply)
 	}
+	call("Master.GetCurState","",&reply)
 	for reply.ReduceTaskFinished == false {
 		doReduceTask(reducef)
 		call("Master.GetCurState","",&reply)
@@ -160,6 +166,7 @@ func CallExample() {
 // usually returns true.
 // returns false if something goes wrong.
 //
+
 func call(rpcname string, args interface{}, reply interface{}) bool {
 	// c, err := rpc.DialHTTP("tcp", "127.0.0.1"+":1234")
 	sockname := masterSock()
