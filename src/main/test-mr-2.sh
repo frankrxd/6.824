@@ -4,7 +4,7 @@
 # basic map-reduce test
 #
 
-RACE=
+RACE=race
 
 # uncomment this to run the tests with the Go race detector.
 #RACE=-race
@@ -210,10 +210,18 @@ else
     exit 1
 fi
 
-#timeout -k 2s 180s ../mrmaster ../pg*txt &
-#timeout -k 2s 180s ../mrworker ../../mrapps/wc.so &
-#timeout -k 2s 180s ../mrworker ../../mrapps/wc.so &
-#timeout -k 2s 180s ../mrworker ../../mrapps/wc.so &
+
+
+
+# make sure software is freshly built.
+
+
+
+../mrmaster ../pg*txt &
+../mrworker ../../mrapps/wc.so &
+../mrworker ../../mrapps/wc.so &
+../mrworker ../../mrapps/wc.so
+
 #
 #
 #timeout -k 2s 180s ../mrmaster ../pg*txt &
@@ -225,6 +233,17 @@ fi
 #../mrworker ../../mrapps/mtiming.so
 #
 #
-#../mrmaster ../pg*txt &
-#../mrworker ../../mrapps/rtiming.so &
-#../mrworker ../../mrapps/rtiming.so
+
+(cd ../../mrapps && go build $RACE -buildmode=plugin wc.go) || exit 1
+(cd ../../mrapps && go build $RACE -buildmode=plugin indexer.go) || exit 1
+(cd ../../mrapps && go build $RACE -buildmode=plugin mtiming.go) || exit 1
+(cd ../../mrapps && go build $RACE -buildmode=plugin rtiming.go) || exit 1
+(cd ../../mrapps && go build $RACE -buildmode=plugin crash.go) || exit 1
+(cd ../../mrapps && go build $RACE -buildmode=plugin nocrash.go) || exit 1
+(cd .. && go build $RACE mrmaster.go) || exit 1
+(cd .. && go build $RACE mrworker.go) || exit 1
+(cd .. && go build $RACE mrsequential.go) || exit 1
+
+../mrmaster ../pg*txt &
+../mrworker ../../mrapps/rtiming.so &
+../mrworker ../../mrapps/rtiming.so

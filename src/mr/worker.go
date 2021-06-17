@@ -51,21 +51,22 @@ func doMapTask(mapf func(string, string) []KeyValue) {
 		file.Close()
 
 		kva := mapf(filename, string(content))
-		var jsonec []*json.Encoder
-		var files []*os.File
+		jsonec := make([]*json.Encoder,reply.NTotal)
+		files := make([]*os.File,reply.NTotal)
 		for i:=0;i<reply.NTotal;i++ {
-			file,_:=os.OpenFile(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,i),os.O_RDWR|os.O_CREATE, 0755)
-
-			files = append(files,file)
-			jsonec = append(jsonec,json.NewEncoder(file))
+			file,_:=os.Create(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,i))
+			files[i] = file
+			jsonec[i] = json.NewEncoder(file)
 		}
 
 		for _,kv := range kva {
 			//fmt.Println(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,ihash(kv.Key)%reply.NTotal))
-			jsonec[ihash(kv.Key)%reply.NTotal].Encode(&kv)
+			err = jsonec[ihash(kv.Key)%reply.NTotal].Encode(&kv)
+			if err!= nil {
+				log.Println(err)
+			}
 		}
 		for i:=0;i<reply.NTotal;i++ {
-			//fmt.Println(files[i].Name())
 			files[i].Close()
 		}
 	}
@@ -89,16 +90,20 @@ func doReduceTask(reducef func(string, []string) string) {
 		dec := json.NewDecoder(file)
 		for {
 			var kv KeyValue
-			if err := dec.Decode(&kv); err != nil {
+			if err = dec.Decode(&kv); err != nil {
 				break
+			} else {
+				intermediate = append(intermediate, kv)
 			}
-			intermediate = append(intermediate, kv)
 		}
 		file.Close()
 	}
-	sort.Sort(ByKey(intermediate))
 	ofile, _ := os.Create(fmt.Sprintf("mr-out-%v", reply.CurTaskId))
+	sort.Sort(ByKey(intermediate))
+
 	i := 0
+
+
 	for i < len(intermediate) {
 		j := i + 1
 		for j < len(intermediate) && intermediate[j].Key == intermediate[i].Key {
@@ -109,6 +114,7 @@ func doReduceTask(reducef func(string, []string) string) {
 			values = append(values, intermediate[k].Value)
 		}
 		output := reducef(intermediate[i].Key, values)
+
 		// this is the correct format for each line of Reduce output.
 		fmt.Fprintf(ofile, "%v %v\n", intermediate[i].Key, output)
 		i = j
