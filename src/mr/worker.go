@@ -100,9 +100,7 @@ func doReduceTask(reducef func(string, []string) string) {
 	}
 	ofile, _ := os.Create(fmt.Sprintf("mr-out-%v", reply.CurTaskId))
 	sort.Sort(ByKey(intermediate))
-
 	i := 0
-
 
 	for i < len(intermediate) {
 		j := i + 1
