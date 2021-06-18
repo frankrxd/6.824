@@ -2,7 +2,6 @@ package mr
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -59,10 +58,6 @@ func (m *Master) Example(args *ExampleArgs, reply *ExampleReply) error {
 	return nil
 }
 
-type TaskReply struct {
-	Task		Task
-}
-
 
 func (m *Master) Producer(task Task) {
 	log.Println("Produce task:", TaskTypeName[task.Type],task.Id)
@@ -79,7 +74,7 @@ func (m *Master) Consumer(tasktype int) (Task,bool) {
 		select {
 		case <-m.TaskDoneChan[task.Type][task.Id]:
 			{
-				log.Println("Task has done :", TaskTypeName[task.Type],task.Id)
+				log.Println("Task has done: ", TaskTypeName[task.Type],task.Id)
 				close(m.TaskDoneChan[task.Type][task.Id])
 				return
 			}
@@ -96,20 +91,20 @@ func (m *Master) Consumer(tasktype int) (Task,bool) {
 
 }
 
-func (m *Master) ProduceReduceTask() {
-	go func() {
-		<-m.DoneTotalMapChan //Map任务完成
-		close(m.DoneTotalMapChan)
-		close(m.MapChan)
-		log.Println("Map task has finished!")
-		for i := 0; i < m.nReduce; i++ {
-			go m.ReduceProducer(i)
-		}
-	}()
-}
+//func (m *Master) ProduceReduceTask() {
+//	go func() {
+//		<-m.DoneTotalMapChan //Map任务完成
+//		close(m.DoneTotalMapChan)
+//		close(m.MapChan)
+//		log.Println("Map task has finished!")
+//		for i := 0; i < m.nReduce; i++ {
+//			go m.ReduceProducer(i)
+//		}
+//	}()
+//}
 
-func (m *Master)GetTask(tasktypes *int, reply *Task) error {
-	task,ok := m.Consumer(*tasktypes)
+func (m *Master)GetTask(tasktypes int, reply *Task) error {
+	task,ok := m.Consumer(tasktypes)
 	if ok != false {
 		*reply = task
 	} else {
@@ -125,6 +120,7 @@ func (m *Master) CurTaskDone(task *Task, reply *string) error {
 	if len(m.FinishedTask[task.Type]) == m.TaskNum[task.Type] {
 		m.TaskFinishedChan[task.Type] <- struct{}{}
 		m.TaskFinished[task.Type] = true
+		close(m.TaskChan[task.Type])
 	}
 	m.mutex[task.Type].Unlock()
 	return nil
@@ -133,11 +129,19 @@ func (m *Master) CurTaskDone(task *Task, reply *string) error {
 type StateReply struct {
 	state []bool
 }
-func (m *Master) GetCurState(args *string, reply *StateReply) error {
-	mutex := sync.Mutex{}master.go
-		mutex.Lock()
-	(*reply).state = m.TaskFinished
-	mutex.Unlock()
+func (m *Master) GetCurState(args *string, reply *[]bool) error {
+	*reply = m.TaskFinished
+	return nil
+}
+
+type TaskInfo struct {
+	TaskNum []int
+	MapDataPath []string
+}
+
+func (m *Master) GetTaskInfo(args *string, reply *TaskInfo) error {
+	(*reply).TaskNum = m.TaskNum
+	(*reply).MapDataPath = m.MapDataPath
 	return nil
 }
 
@@ -164,9 +168,8 @@ func (m *Master) server() {
 //
 func (m *Master) Done() bool {
 	ret := false
-	<-m.DoneTotalReduceChan //Reduce任务完成
-	close(m.DoneTotalReduceChan)
-	close(m.ReduceChan)
+	<-m.TaskFinishedChan[Reduce]
+	close(m.TaskFinishedChan[Reduce])
 	ret = true
 	// Your code here.
 	return ret
@@ -192,21 +195,16 @@ func MakeMaster(files []string, nReduce int) *Master {
 	}
 	for i := 0; i < TypeNum; i++ {
 		m.TaskDoneChan[i] = make([]chan struct{},m.TaskNum[i])
+		m.TaskChan[i] = make(chan Task,m.TaskNum[i])
+		m.TaskFinishedChan[i] = make(chan struct{},1)
+		m.FinishedTask[i] = make(map[int]struct{})
+
 		for j := 0; j < m.TaskNum[i]; j++ {
+			m.TaskDoneChan[i][j] = make(chan struct{},1)
 			m.Producer(Task{j,i})
 		}
 	}
 
-	for i := 0; i < nReduce; i++ {
-		Path := []string{}
-		for j := 0; j < m.nMap; j++ {
-			Path = append(Path, fmt.Sprintf("mr-%v-%v", j, i))
-		}
-		m.reducetasks = append(m.reducetasks, ShuffleTidyTaskInfo{i, Path})
-	}
-
-
 	m.server()
-	m.ProduceReduceTask()
 	return &m
 }

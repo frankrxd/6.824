@@ -33,89 +33,72 @@ func ihash(key string) int {
 //
 // main/mrworker.go calls this function.
 //
-
-func doTaskTrace(mapf func(string, string) []KeyValue,
-	reducef func(string, []string) string,task Task,info *TaskInfo) {
-	switch task.Type {
-	case Map: {
-		doMapTask(mapf,task,info)
+func doMapTask(mapf func(string, string) []KeyValue) {
+	var reply TaskReply
+	if call("Master.GetMapTask","",&reply) == false {
+		return
 	}
-	case Reduce: {
-		doReduceTask(reducef,task,info)
-	}
-	}
-}
-
-func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
-	log.Println("doTask:  ", TaskTypeName[task.Type],task.Id)
-	fmt.Println(info.MapDataPath)
-	for _,filename := range info.MapDataPath {
-		mapInputFile, err := os.Open(filename)
+	log.Println("doMapTask :",reply.CurTaskId)
+	for _,filename := range reply.Path {
+		file, err := os.Open(filename)
 		if err != nil {
-			log.Fatalf("cannot open %v", filename)
+			log.Fatalf("cannot open %v", reply)
 		}
-		content, err := ioutil.ReadAll(mapInputFile)
+		content, err := ioutil.ReadAll(file)
 		if err != nil {
-			log.Fatalf("cannot read %v", filename)
+			log.Fatalf("cannot read %v", reply)
 		}
-		mapInputFile.Close()
+		file.Close()
 
 		kva := mapf(filename, string(content))
-		jsonec := make([]*json.Encoder,info.TaskNum[Reduce])
-		files := make([]*os.File,info.TaskNum[Reduce])
-		for i:=0;i<info.TaskNum[Reduce];i++ {
-			mapOutputFile,err:=os.OpenFile(fmt.Sprintf("mr-%v-%v",task.Id,i),os.O_RDWR|os.O_CREATE, 0755)
-			if err != nil {
-				log.Fatalf("cannot create %v", fmt.Sprintf("mr-%v-%v", task.Id, i))
-			}
-			files[i] = mapOutputFile
-			jsonec[i] = json.NewEncoder(mapOutputFile)
+		var jsonec []*json.Encoder
+		var files []*os.File
+		for i:=0;i<reply.NTotal;i++ {
+			file,_:=os.OpenFile(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,i),os.O_RDWR|os.O_CREATE, 0755)
+
+			files = append(files,file)
+			jsonec = append(jsonec,json.NewEncoder(file))
 		}
 
 		for _,kv := range kva {
 			//fmt.Println(fmt.Sprintf("mr-%v-%v",reply.CurTaskId,ihash(kv.Key)%reply.NTotal))
-			err = jsonec[ihash(kv.Key)%info.TaskNum[Reduce]].Encode(&kv)
-			if err!= nil {
-				log.Println(err)
-			}
+			jsonec[ihash(kv.Key)%reply.NTotal].Encode(&kv)
 		}
-		for i:=0;i<info.TaskNum[Reduce];i++ {
+		for i:=0;i<reply.NTotal;i++ {
+			//fmt.Println(files[i].Name())
 			files[i].Close()
 		}
 	}
 	var tmp string
-	call("Master.CurTaskDone",&task,&tmp)
+	call("Master.CurMapTaskDone",&reply.CurTaskId,&tmp)
 }
 
 
-func doReduceTask(reducef func(string, []string) string,task Task,info *TaskInfo) {
-	log.Println("doTask:  ", TaskTypeName[task.Type],task.Id)
+func doReduceTask(reducef func(string, []string) string) {
+	var reply TaskReply
+	if call("Master.GetReduceTask","",&reply) == false {
+		return
+	}
+	log.Println("doReduceTask :",reply.CurTaskId)
 	intermediate := []KeyValue{}
-
-	for i:=0;i<info.TaskNum[Map];i++ {
-		reduceInputFile,err:=os.Open(fmt.Sprintf("mr-%v-%v", i, task.Id))
+	for _, filename := range reply.Path {
+		file, err := os.Open(filename)
 		if err != nil {
-			log.Fatalf("cannot create %v", fmt.Sprintf("mr-%v-%v", i, task.Id))
+			log.Fatalf("cannot open %v", filename)
 		}
-		dec := json.NewDecoder(reduceInputFile)
+		dec := json.NewDecoder(file)
 		for {
 			var kv KeyValue
-			if err = dec.Decode(&kv); err != nil {
+			if err := dec.Decode(&kv); err != nil {
 				break
-			} else {
-				intermediate = append(intermediate, kv)
 			}
+			intermediate = append(intermediate, kv)
 		}
-		reduceInputFile.Close()
-	}
-
-	reduceOutputFile, err := os.Create(fmt.Sprintf("mr-out-%v", task.Id))
-	if err != nil {
-		log.Fatalf("cannot create %v", fmt.Sprintf("mr-out-%v", task.Id))
+		file.Close()
 	}
 	sort.Sort(ByKey(intermediate))
+	ofile, _ := os.Create(fmt.Sprintf("mr-out-%v", reply.CurTaskId))
 	i := 0
-
 	for i < len(intermediate) {
 		j := i + 1
 		for j < len(intermediate) && intermediate[j].Key == intermediate[i].Key {
@@ -126,14 +109,13 @@ func doReduceTask(reducef func(string, []string) string,task Task,info *TaskInfo
 			values = append(values, intermediate[k].Value)
 		}
 		output := reducef(intermediate[i].Key, values)
-
 		// this is the correct format for each line of Reduce output.
-		fmt.Fprintf(reduceOutputFile, "%v %v\n", intermediate[i].Key, output)
+		fmt.Fprintf(ofile, "%v %v\n", intermediate[i].Key, output)
 		i = j
 	}
-	reduceOutputFile.Close()
+	ofile.Close()
 	var tmp string
-	call("Master.CurTaskDone",&task,&tmp)
+	call("Master.CurReduceTaskDone",&reply.CurTaskId,&tmp)
 }
 
 
@@ -141,21 +123,18 @@ func Worker(mapf func(string, string) []KeyValue,
 	reducef func(string, []string) string) {
 
 	// Your worker implementation here.
+
 	// uncomment to send the Example RPC to the master.
-	var taskInfo TaskInfo
-	call("Master.GetTaskInfo","",&taskInfo)
-	for i:=0;i<TypeNum;i++ {
-		reply := []bool{false,false}
+	reply := StateReply{false,false}
+	call("Master.GetCurState","",&reply)
+	for reply.MapTaskFinished == false {
+		doMapTask(mapf)
 		call("Master.GetCurState","",&reply)
-		for reply[i] == false {
-			task := Task{}
-			if call("Master.GetTask",i,&task) == false {
-				return
-			}
-			log.Println("Get task:", TaskTypeName[task.Type],task.Id)
-			doTaskTrace(mapf,reducef,task,&taskInfo)
-			call("Master.GetCurState","",&reply)
-		}
+	}
+	call("Master.GetCurState","",&reply)
+	for reply.ReduceTaskFinished == false {
+		doReduceTask(reducef)
+		call("Master.GetCurState","",&reply)
 	}
 }
 
