@@ -247,3 +247,42 @@ fi
 ../mrmaster ../pg*txt &
 ../mrworker ../../mrapps/rtiming.so &
 ../mrworker ../../mrapps/rtiming.so
+
+
+../mrmaster ../pg*txt &
+../mrworker ../../mrapps/wc.so &
+../mrworker ../../mrapps/wc.so &
+../mrworker ../../mrapps/wc.so
+
+
+../mrsequential ../../mrapps/indexer.so ../pg*txt || exit 1
+sort mr-out-0 > mr-correct-indexer.txt
+rm -f mr-out*
+
+echo '***' Starting indexer test.
+
+../mrmaster ../pg*txt &
+sleep 1
+
+# start multiple workers
+
+../mrsequential ../../mrapps/indexer.so ../pg*txt || exit 1
+sort mr-out-0 > mr-correct-indexer.txt
+rm -f mr-out*
+
+../mrmaster ../pg*txt &
+../mrworker ../../mrapps/indexer.so &
+../mrworker ../../mrapps/indexer.so
+
+
+sort mr-out* | grep . > mr-indexer-all
+if cmp mr-indexer-all mr-correct-indexer.txt
+then
+  echo '---' indexer test: PASS
+else
+  echo '---' indexer output is not the same as mr-correct-indexer.txt
+  echo '---' indexer test: FAIL
+  failed_any=1
+fi
+
+wait ; wait

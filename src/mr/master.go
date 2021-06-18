@@ -21,16 +21,14 @@ var TaskTypeName = []string{"Map","Reduce"}
 
 type Master struct {
 	// Your definitions here.
-	TaskNum				[]int
-	MapDataPath			[]string
-	ReduceDataPath		[][]string
-	TaskChan			[]chan Task
-	TaskDoneChan		[][]chan struct{}
-	TaskFinishedChan	[]chan struct{}
-	FinishedTask        []map[int]struct{}
-	TaskFinished		[]bool
-	mutex				[]sync.Mutex
-	mutexReduce			sync.Mutex
+	TaskNum         []int
+	MapDataPath     []string
+	TaskChan        []chan Task
+	CurTaskDoneChan [][]chan struct{}
+	AllTaskDoneChan []chan struct{}
+	FinishedTasks   []map[int]struct{}
+	TaskTypeState   []bool
+	mutex           []sync.Mutex
 }
 
 
@@ -60,7 +58,7 @@ func (m *Master) Example(args *ExampleArgs, reply *ExampleReply) error {
 
 
 func (m *Master) Producer(task Task) {
-	log.Println("Produce task:", TaskTypeName[task.Type],task.Id)
+	log.Println(TaskTypeName[task.Type],task.Id,"Task Produce" )
 	m.TaskChan[task.Type] <- task
 }
 
@@ -69,18 +67,17 @@ func (m *Master) Consumer(tasktype int) (Task,bool) {
 	if ok == false {
 		return Task{},false
 	}
-	log.Println("Consume task : ",TaskTypeName[task.Type],task.Id)
+	log.Println(TaskTypeName[task.Type],task.Id,"Task Consume" )
 	go func() {
 		select {
-		case <-m.TaskDoneChan[task.Type][task.Id]:
+		case <-m.CurTaskDoneChan[task.Type][task.Id]:
 			{
-				log.Println("Task has done: ", TaskTypeName[task.Type],task.Id)
-				close(m.TaskDoneChan[task.Type][task.Id])
+				log.Println(TaskTypeName[task.Type],task.Id,"Task Done" )
 				return
 			}
 		case <-time.After(10 * time.Second):
 			{
-				log.Println("Task timeout :", TaskTypeName[task.Type],task.Id)
+				log.Println(TaskTypeName[task.Type],task.Id,"Task Timeout" )
 				m.Producer(task)
 				return
 				//将此task加到Produce中
@@ -91,19 +88,7 @@ func (m *Master) Consumer(tasktype int) (Task,bool) {
 
 }
 
-//func (m *Master) ProduceReduceTask() {
-//	go func() {
-//		<-m.DoneTotalMapChan //Map任务完成
-//		close(m.DoneTotalMapChan)
-//		close(m.MapChan)
-//		log.Println("Map task has finished!")
-//		for i := 0; i < m.nReduce; i++ {
-//			go m.ReduceProducer(i)
-//		}
-//	}()
-//}
-
-func (m *Master)GetTask(tasktypes int, reply *Task) error {
+func (m *Master) GetTask(tasktypes int, reply *Task) error {
 	task,ok := m.Consumer(tasktypes)
 	if ok != false {
 		*reply = task
@@ -114,13 +99,19 @@ func (m *Master)GetTask(tasktypes int, reply *Task) error {
 }
 
 func (m *Master) CurTaskDone(task *Task, reply *string) error {
-	m.TaskDoneChan[task.Type][task.Id] <- struct{}{}
 	m.mutex[task.Type].Lock()
-	m.FinishedTask[task.Type][task.Id] = struct{}{}
-	if len(m.FinishedTask[task.Type]) == m.TaskNum[task.Type] {
-		m.TaskFinishedChan[task.Type] <- struct{}{}
-		m.TaskFinished[task.Type] = true
-		close(m.TaskChan[task.Type])
+	if _,ok := m.FinishedTasks[task.Type][task.Id]; ok == false {
+		// 在[]map[int]struct{}中去重
+		// 保证CurTaskDoneChan[task.Type][task.Id] 只会写一次
+		m.FinishedTasks[task.Type][task.Id] = struct{}{}
+		m.CurTaskDoneChan[task.Type][task.Id] <- struct{}{}
+		close(m.CurTaskDoneChan[task.Type][task.Id])
+		if len(m.FinishedTasks[task.Type]) == m.TaskNum[task.Type] {
+			m.AllTaskDoneChan[task.Type] <- struct{}{}
+			close(m.AllTaskDoneChan[task.Type])
+			m.TaskTypeState[task.Type] = true
+			close(m.TaskChan[task.Type])
+		}
 	}
 	m.mutex[task.Type].Unlock()
 	return nil
@@ -130,7 +121,7 @@ type StateReply struct {
 	state []bool
 }
 func (m *Master) GetCurState(args *string, reply *[]bool) error {
-	*reply = m.TaskFinished
+	*reply = m.TaskTypeState
 	return nil
 }
 
@@ -168,8 +159,7 @@ func (m *Master) server() {
 //
 func (m *Master) Done() bool {
 	ret := false
-	<-m.TaskFinishedChan[Reduce]
-	close(m.TaskFinishedChan[Reduce])
+	<-m.AllTaskDoneChan[Reduce]
 	ret = true
 	// Your code here.
 	return ret
@@ -183,24 +173,23 @@ func (m *Master) Done() bool {
 func MakeMaster(files []string, nReduce int) *Master {
 	nMap := len(os.Args[1:])
 	m := Master {
-		TaskNum:			[]int{nMap,nReduce},
-		MapDataPath:		os.Args[1:],
-		ReduceDataPath:		make([][]string,nReduce),
-		TaskChan:			make([]chan Task,TypeNum),
-		TaskDoneChan:		make([][]chan struct{},TypeNum),
-		TaskFinishedChan:	make([]chan struct{},TypeNum),
-		FinishedTask:       make([]map[int]struct{},TypeNum),
-		TaskFinished:		[]bool{false,false},
-		mutex:				make([]sync.Mutex,TypeNum),
+		TaskNum:         []int{nMap,nReduce},
+		MapDataPath:     os.Args[1:],
+		TaskChan:        make([]chan Task,TypeNum),
+		CurTaskDoneChan: make([][]chan struct{},TypeNum),
+		AllTaskDoneChan: make([]chan struct{},TypeNum),
+		FinishedTasks:   make([]map[int]struct{},TypeNum),
+		TaskTypeState:   []bool{false,false},
+		mutex:           make([]sync.Mutex,TypeNum),
 	}
 	for i := 0; i < TypeNum; i++ {
-		m.TaskDoneChan[i] = make([]chan struct{},m.TaskNum[i])
+		m.CurTaskDoneChan[i] = make([]chan struct{},m.TaskNum[i])
 		m.TaskChan[i] = make(chan Task,m.TaskNum[i])
-		m.TaskFinishedChan[i] = make(chan struct{},1)
-		m.FinishedTask[i] = make(map[int]struct{})
+		m.AllTaskDoneChan[i] = make(chan struct{},1)
+		m.FinishedTasks[i] = make(map[int]struct{})
 
 		for j := 0; j < m.TaskNum[i]; j++ {
-			m.TaskDoneChan[i][j] = make(chan struct{},1)
+			m.CurTaskDoneChan[i][j] = make(chan struct{},1)
 			m.Producer(Task{j,i})
 		}
 	}

@@ -47,7 +47,7 @@ func doTaskTrace(mapf func(string, string) []KeyValue,
 }
 
 func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
-	log.Println("doTask:  ", TaskTypeName[task.Type],task.Id)
+	log.Println(TaskTypeName[task.Type],task.Id,"Task Doing" )
 	//fmt.Println(info.MapDataPath)
 	for _,filename := range []string{info.MapDataPath[task.Id]} {
 		mapInputFile, err := os.Open(filename)
@@ -87,9 +87,8 @@ func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
 	call("Master.CurTaskDone",&task,&tmp)
 }
 
-
 func doReduceTask(reducef func(string, []string) string,task Task,info *TaskInfo) {
-	log.Println("doTask:  ", TaskTypeName[task.Type],task.Id)
+	log.Println(TaskTypeName[task.Type],task.Id,"Task Doing" )
 	intermediate := []KeyValue{}
 
 	for i:=0;i<info.TaskNum[Map];i++ {
@@ -152,7 +151,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			if call("Master.GetTask",i,&task) == false {
 				return
 			}
-			log.Println("Get task:", TaskTypeName[task.Type],task.Id)
+			log.Println(TaskTypeName[task.Type],task.Id,"Task Get" )
 			doTaskTrace(mapf,reducef,task,&taskInfo)
 			call("Master.GetCurState","",&reply)
 		}
