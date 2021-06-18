@@ -2,6 +2,7 @@ package mr
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"sync"
 	"time"
@@ -10,6 +11,11 @@ import "net"
 import "os"
 import "net/rpc"
 import "net/http"
+
+func init()  {
+	outfile, _ := os.OpenFile("master.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	log.SetOutput(outfile)
+}
 
 const (
 	Map  =  0
@@ -58,7 +64,7 @@ func (m *Master) Example(args *ExampleArgs, reply *ExampleReply) error {
 
 
 func (m *Master) Producer(task Task) {
-	log.Println(TaskTypeName[task.Type],task.Id,"Task Produce" )
+	log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Produce" )
 	m.TaskChan[task.Type] <- task
 }
 
@@ -67,17 +73,17 @@ func (m *Master) Consumer(tasktype int) (Task,bool) {
 	if ok == false {
 		return Task{},false
 	}
-	log.Println(TaskTypeName[task.Type],task.Id,"Task Consume" )
+	log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Consume" )
 	go func() {
 		select {
 		case <-m.CurTaskDoneChan[task.Type][task.Id]:
 			{
-				log.Println(TaskTypeName[task.Type],task.Id,"Task Done" )
+				log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Done" )
 				return
 			}
 		case <-time.After(10 * time.Second):
 			{
-				log.Println(TaskTypeName[task.Type],task.Id,"Task Timeout" )
+				log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Timeout" )
 				m.Producer(task)
 				return
 				//将此task加到Produce中
@@ -93,7 +99,7 @@ func (m *Master) GetTask(tasktypes int, reply *Task) error {
 	if ok != false {
 		*reply = task
 	} else {
-		return errors.New("GetTask: get task failed (chan is closed)")
+		return errors.New(fmt.Sprintf("%v %v %v Chan Closed",os.Getpid(),TaskTypeName[task.Type],task.Id))
 	}
 	return nil
 }

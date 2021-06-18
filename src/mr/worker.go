@@ -11,6 +11,10 @@ import "log"
 import "net/rpc"
 import "hash/fnv"
 
+func init()  {
+	outfile, _ := os.OpenFile("master.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	log.SetOutput(outfile)
+}
 
 //
 // Map functions return a slice of KeyValue.
@@ -47,7 +51,7 @@ func doTaskTrace(mapf func(string, string) []KeyValue,
 }
 
 func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
-	log.Println(TaskTypeName[task.Type],task.Id,"Task Doing" )
+	log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Doing" )
 	//fmt.Println(info.MapDataPath)
 	for _,filename := range []string{info.MapDataPath[task.Id]} {
 		mapInputFile, err := os.Open(filename)
@@ -88,7 +92,7 @@ func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
 }
 
 func doReduceTask(reducef func(string, []string) string,task Task,info *TaskInfo) {
-	log.Println(TaskTypeName[task.Type],task.Id,"Task Doing" )
+	log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Doing" )
 	intermediate := []KeyValue{}
 
 	for i:=0;i<info.TaskNum[Map];i++ {
@@ -151,7 +155,7 @@ func Worker(mapf func(string, string) []KeyValue,
 			if call("Master.GetTask",i,&task) == false {
 				return
 			}
-			log.Println(TaskTypeName[task.Type],task.Id,"Task Get" )
+			log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Get" )
 			doTaskTrace(mapf,reducef,task,&taskInfo)
 			call("Master.GetCurState","",&reply)
 		}
@@ -201,6 +205,6 @@ func call(rpcname string, args interface{}, reply interface{}) bool {
 		return true
 	}
 
-	fmt.Println(err)
+	log.Println(err)
 	return false
 }
