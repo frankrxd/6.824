@@ -48,8 +48,8 @@ func doTaskTrace(mapf func(string, string) []KeyValue,
 
 func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
 	log.Println("doTask:  ", TaskTypeName[task.Type],task.Id)
-	fmt.Println(info.MapDataPath)
-	for _,filename := range info.MapDataPath {
+	//fmt.Println(info.MapDataPath)
+	for _,filename := range []string{info.MapDataPath[task.Id]} {
 		mapInputFile, err := os.Open(filename)
 		if err != nil {
 			log.Fatalf("cannot open %v", filename)
@@ -64,7 +64,7 @@ func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
 		jsonec := make([]*json.Encoder,info.TaskNum[Reduce])
 		files := make([]*os.File,info.TaskNum[Reduce])
 		for i:=0;i<info.TaskNum[Reduce];i++ {
-			mapOutputFile,err:=os.OpenFile(fmt.Sprintf("mr-%v-%v",task.Id,i),os.O_RDWR|os.O_CREATE, 0755)
+			mapOutputFile,err:=os.Create(fmt.Sprintf("mr-%v-%v",task.Id,i))
 			if err != nil {
 				log.Fatalf("cannot create %v", fmt.Sprintf("mr-%v-%v", task.Id, i))
 			}
