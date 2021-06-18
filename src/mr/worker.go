@@ -94,7 +94,6 @@ func doMapTask(mapf func(string, string) []KeyValue,task Task,info *TaskInfo) {
 func doReduceTask(reducef func(string, []string) string,task Task,info *TaskInfo) {
 	log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Doing" )
 	intermediate := []KeyValue{}
-
 	for i:=0;i<info.TaskNum[Map];i++ {
 		reduceInputFile,err:=os.Open(fmt.Sprintf("mr-%v-%v", i, task.Id))
 		if err != nil {
@@ -153,7 +152,7 @@ func Worker(mapf func(string, string) []KeyValue,
 		for reply[i] == false {
 			task := Task{}
 			if call("Master.GetTask",i,&task) == false {
-				return
+				break
 			}
 			log.Println(os.Getpid(),TaskTypeName[task.Type],task.Id,"Task Get" )
 			doTaskTrace(mapf,reducef,task,&taskInfo)
