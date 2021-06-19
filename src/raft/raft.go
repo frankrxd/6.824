@@ -19,7 +19,9 @@ package raft
 
 import (
 	"log"
+	"math/rand"
 	"sync"
+	"time"
 )
 import "sync/atomic"
 import "../labrpc"
@@ -47,6 +49,16 @@ type ApplyMsg struct {
 }
 type IndexType int
 type TermType int
+type ElectionStatusType int
+
+const (
+	Follower = 0
+	Candidate = 1
+	Leader = 2
+	ElectionTimeoutSectionStart int64 = 150
+	ElectionTimeoutSectionDuration time.Duration = 150
+)
+
 //
 // A Go object implementing a single Raft peer.
 //
@@ -69,11 +81,11 @@ type Raft struct {
 	// volatility statue
 	commitIndex IndexType
 	lastApplied IndexType
-
 	// leader volatility statue
 	nextIndex []IndexType //对于每一台服务器，发送到该服务器的下一个日志条目的索引（初始值为领导者最后的日志条目的索引+1）
 	matchIndex []IndexType //对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引（初始值为0，单调递增）
 
+	electionStatus ElectionStatusType
 
 }
 
@@ -171,8 +183,31 @@ type RequestVoteReply struct {
 //
 // example RequestVote RPC handler.
 //
-func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
+func (rf *Raft) ElectionTermLoop() {
+	for {
+		select {
+		case true: {
+
+		}
+
+		case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
+
+		}
+
+		}
+	}
+}
+
+func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) error {
 	// Your code here (2A, 2B).
+	if rf.electionStatus == Follower && rf.currentTerm < args.term {
+		rf.currentTerm = args.term
+		rf.votedFor = args.candidateId
+		*reply = RequestVoteReply{rf.currentTerm,true}
+	} else {
+		*reply = RequestVoteReply{ rf.currentTerm,false}
+	}
+	return nil
 }
 
 //
