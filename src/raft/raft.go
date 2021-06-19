@@ -57,6 +57,7 @@ const (
 	Leader = 2
 	ElectionTimeoutSectionStart int64 = 150
 	ElectionTimeoutSectionDuration time.Duration = 150
+	VotedForNone = -1
 )
 
 //
@@ -87,11 +88,18 @@ type Raft struct {
 
 	electionStatus ElectionStatusType
 
+	electionChan chan struct{}
 }
 
 type LogEntries struct {
-
+	LogTerm TermType
 }
+
+type LogStatus struct {
+	LogIndex IndexType
+	LogTerm	TermType
+}
+
 
 type AppendEntriesArgs struct {
 	term TermType
@@ -157,7 +165,6 @@ func (rf *Raft) readPersist(data []byte) {
 
 
 
-
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
@@ -183,31 +190,135 @@ type RequestVoteReply struct {
 //
 // example RequestVote RPC handler.
 //
-func (rf *Raft) ElectionTermLoop() {
+func (rf *Raft) ElectionTimeoutLoop() {
+	status := Follower
 	for {
-		select {
-		case true: {
+		switch status {
+		case Follower: {
+			select {
+			//接收心跳包
+			case <-rf.electionChan: {
+
+			}
+
+			// Candidate status
+			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
+				status = Candidate
+			}
+
+			}
+		}
+		case Candidate: {
+			// Election timeout
+			// becomes a candidate and starts a new election term
+			select {
+			// 选举完成
+			case <- CandidateDone {
+				status = Leader
+			}
+			// 转为Follower
+			case <- SwitchFollower {
+				status = Follower
+			}
+
+			// 选举超时
+			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
+				 // status = Candidate
+				选举超时 <- struct{}
+			}
+			}
+
+			// 选举过程
+			go func() {
+				go func() {
+					for {
+						voteGranted := 1
+						select {
+						case <- 选举超时 { return }
+						case <- voteGrantedChan {
+							voteGranted ++
+							if 2*voteGranted > len(rf.peers) {	CandidateDone<-struct{}	}
+						}
+						//接收心跳包
+						case <-rf.electionChan: {
+							//如果这个领导人的任期号（包含在此次的 RPC中）不小于候选人当前的任期号，那么候选人会承认领导人合法并回到跟随者状态。
+							SwitchFollower <- struct{}
+							//如果此次 RPC 中的任期号比自己小，那么候选人就会拒绝这次的 RPC 并且继续保持候选人状态。
+						}
+						}
+					}
+				}()
+				rf.currentTerm ++
+				rf.votedFor = rf.me
+				voteGranted := 1
+				// sendRequestVote
+				for i:=0;i<len(rf.peers);i++ {
+					if i == rf.me {
+						continue
+					}
+					args := RequestVoteArgs{
+						rf.currentTerm,
+						rf.me,
+						IndexType(len(rf.log)),
+						rf.log[len(rf.log)-1].LogTerm,
+					}
+					reply := RequestVoteReply{}
+					if rf.sendRequestVote(i,&args,&reply) != false {
+						if reply.voteGranted {
+							voteGranted ++
+						}
+					}
+				}
+			}()
+
 
 		}
 
-		case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
+		case Leader: {
 
 		}
 
 		}
+
 	}
 }
 
-func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) error {
-	// Your code here (2A, 2B).
-	if rf.electionStatus == Follower && rf.currentTerm < args.term {
-		rf.currentTerm = args.term
-		rf.votedFor = args.candidateId
-		*reply = RequestVoteReply{rf.currentTerm,true}
-	} else {
-		*reply = RequestVoteReply{ rf.currentTerm,false}
+
+func isLogNewer(log1 LogStatus,log2 LogStatus) bool{
+	if log1.LogTerm > log2.LogTerm {
+		return true
+	} else if log1.LogTerm == log2.LogTerm && log1.LogIndex >= log2.LogIndex{
+		return true
 	}
-	return nil
+	return false
+}
+
+func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
+	// Your code here (2A, 2B).
+	// 如果`term < currentTerm`返回 false
+	if rf.currentTerm > args.term {
+		*reply = RequestVoteReply{
+			rf.currentTerm,false,
+		}
+		return
+	}
+	// 如果 votedFor 为空或者为 candidateId，并且候选人的日志至少和自己一样新，那么就投票给他
+	if (rf.votedFor == VotedForNone || rf.votedFor == args.candidateId) &&
+		isLogNewer(LogStatus{args.lastLogIndex,args.lastLogTerm},LogStatus{IndexType(len(rf.log)),rf.log[len(rf.log)-1].LogTerm})  {
+		rf.votedFor = args.candidateId
+		if rf.currentTerm != args.term {
+			rf.currentTerm = args.term
+			rf.votedFor = VotedForNone
+		}
+		*reply = RequestVoteReply{
+			rf.currentTerm,true,
+		}
+		return
+	}
+	*reply = RequestVoteReply{
+		rf.currentTerm,false,
+	}
+	return
 }
 
 //
