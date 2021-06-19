@@ -17,7 +17,10 @@ package raft
 //   in the same server.
 //
 
-import "sync"
+import (
+	"log"
+	"sync"
+)
 import "sync/atomic"
 import "../labrpc"
 
@@ -42,7 +45,8 @@ type ApplyMsg struct {
 	Command      interface{}
 	CommandIndex int
 }
-
+type IndexType int
+type TermType int
 //
 // A Go object implementing a single Raft peer.
 //
@@ -57,8 +61,39 @@ type Raft struct {
 	// Look at the paper's Figure 2 for a description of what
 	// state a Raft server must maintain.
 
+	// persister statue
+	currentTerm TermType // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
+	votedFor int //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
+	log []LogEntries //日志条目;每个条目包含了用于状态机的命令，以及领导者接收到该条目时的任期（第一个索引为1）
+
+	// volatility statue
+	commitIndex IndexType
+	lastApplied IndexType
+
+	// leader volatility statue
+	nextIndex []IndexType //对于每一台服务器，发送到该服务器的下一个日志条目的索引（初始值为领导者最后的日志条目的索引+1）
+	matchIndex []IndexType //对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引（初始值为0，单调递增）
+
+
 }
 
+type LogEntries struct {
+
+}
+
+type AppendEntriesArgs struct {
+	term TermType
+	leaderId int
+	prevLogIndex IndexType
+	prevLogTerm TermType
+	entries []LogEntries
+	leaderCommit IndexType
+}
+
+type AppendEntriesReply struct {
+	term TermType
+	success bool
+}
 // return currentTerm and whether this server
 // believes it is the leader.
 func (rf *Raft) GetState() (int, bool) {
@@ -117,6 +152,10 @@ func (rf *Raft) readPersist(data []byte) {
 //
 type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
+	term TermType
+	candidateId int
+	lastLogIndex IndexType
+	lastLogTerm TermType
 }
 
 //
@@ -125,6 +164,8 @@ type RequestVoteArgs struct {
 //
 type RequestVoteReply struct {
 	// Your data here (2A).
+	term TermType
+	voteGranted bool
 }
 
 //
@@ -232,6 +273,10 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.peers = peers
 	rf.persister = persister
 	rf.me = me
+
+	log.Println("rf.peers:",peers)
+	log.Println("rf.persister:",persister)
+	log.Println("rf.me:",me)
 
 	// Your initialization code here (2A, 2B, 2C).
 
