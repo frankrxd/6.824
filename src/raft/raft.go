@@ -56,6 +56,7 @@ const (
 	ElectionTimeoutSectionStart    int64         = 150
 	ElectionTimeoutSectionDuration time.Duration = 150
 	VotedForNone                                 = -1
+	LogIndexOffset	= 1
 )
 
 //
@@ -87,12 +88,16 @@ type Raft struct {
 	electionStatus ElectionStatusType
 
 	// definitions of chan
-	hasVotedChan        chan struct{}
-	logEntriesChan      chan LogEntries
-	electionDoneChan    chan struct{}
-	electionTimeoutChan chan struct{}
-	voteGrantedChan     chan struct{}
-	validLogEntriesChan chan LogEntries
+	hasVotedChan         chan struct{}
+	logEntriesChan       chan LogEntries
+	voteReceiveChan      chan RequestVoteArgs
+	electionDoneChan     chan struct{}
+	electionTimeoutChan  chan struct{}
+	voteGrantedChan      chan struct{}
+	requestNewerTermChan chan struct{}
+	curLeaderAppendChan  chan struct{}
+	replyNewerTermChan   chan struct{}
+	leaveFollower	chan struct{}
 }
 
 type LogEntries struct {
@@ -104,19 +109,6 @@ type LogStatus struct {
 	LogTerm  TermType
 }
 
-type AppendEntriesArgs struct {
-	term         TermType
-	leaderId     int
-	prevLogIndex IndexType
-	prevLogTerm  TermType
-	entries      []LogEntries
-	leaderCommit IndexType
-}
-
-type AppendEntriesReply struct {
-	term    TermType
-	success bool
-}
 
 // return currentTerm and whether this server
 // believes it is the leader.
@@ -174,8 +166,8 @@ type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
 	term         TermType
 	candidateId  int
-	lastLogIndex IndexType
-	lastLogTerm  TermType
+	lastLogIndex IndexType //候选人的最后日志条目的索引值
+	lastLogTerm  TermType //候选人最后日志条目的任期号
 }
 
 //
@@ -188,13 +180,47 @@ type RequestVoteReply struct {
 	voteGranted bool
 }
 
+type AppendEntriesArgs struct {
+	term         TermType //领导者的任期
+	leaderId     int	//领导者ID
+	prevLogIndex IndexType //紧邻新日志条目之前的那个日志条目的索引
+	prevLogTerm  TermType //紧邻新日志条目之前的那个日志条目的任期
+	entries      []LogEntries //需要被保存的日志条目（被当做心跳使用时，则日志条目内容为空；为了提高效率可能一次性发送多个）
+	leaderCommit IndexType //领导者的已知已提交的最高的日志条目的索引
+}
+
+type AppendEntriesReply struct {
+	term    TermType // 当前任期,对于领导者而言 它会更新自己的任期
+	success bool //结果为真 如果跟随者所含有的条目和prevLogIndex以及prevLogTerm匹配上了
+}
+
 //
 // example RequestVote RPC handler.
 //
+
+func (rf *Raft) waitElectionResult()  {
+	for {
+		voteGranted := 1
+		select {
+		case <-rf.electionTimeoutChan:
+			{
+				return
+			}
+		case <-rf.voteGrantedChan:
+			{
+				voteGranted++
+				if 2*voteGranted > len(rf.peers) {
+					rf.electionDoneChan <- struct{}{}
+					return
+				}
+			}
+		}
+	}
+}
+
 func (rf *Raft) election() {
 	//* 自增当前的任期号（currentTerm）
 	//* 给自己投票
-
 	//* 发送请求投票的 RPC 给其他所有服务器
 
 	rf.currentTerm++
@@ -214,6 +240,11 @@ func (rf *Raft) election() {
 			}
 			reply := RequestVoteReply{}
 			if rf.sendRequestVote(peerId, &args, &reply) != false {
+				if reply.term > rf.currentTerm {
+					rf.currentTerm = reply.term
+					rf.replyNewerTermChan <- struct{}{}
+					return
+				}
 				if reply.voteGranted {
 					rf.voteGrantedChan <- struct{}{}
 				}
@@ -221,65 +252,127 @@ func (rf *Raft) election() {
 		}(i)
 	}
 	// wait for voteGrantedChan or electionTimeoutChan
-	go func() {
-		for {
-			voteGranted := 1
-			select {
-			case <-rf.electionTimeoutChan:
-				{
+}
+
+func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *AppendEntriesReply) bool {
+	ok := rf.peers[server].Call("Raft.AppendEntries", args, reply)
+	return ok
+}
+
+
+func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
+	// 1.reply false if term < currentTerm
+	if args.term < rf.currentTerm {
+		*reply = AppendEntriesReply{rf.currentTerm,false}
+		return
+	}
+	// 2.if log doesn't contain an entry at prevLogIndex whose term matches prevLogterm    index = 1 logIndex1 len(log) =2
+	if int(args.prevLogIndex) > len(rf.log) - LogIndexOffset {
+		*reply = AppendEntriesReply{rf.currentTerm,false}
+		return
+	}
+
+	//idx logindex
+	// 1    1
+	// 2    2
+
+	if rf.log[args.prevLogIndex].logStatus.LogTerm != args.prevLogTerm {
+		//return // false
+		*reply = AppendEntriesReply{rf.currentTerm,false}
+		return
+	}
+
+	if args.term > rf.currentTerm {
+		rf.currentTerm = args.term
+		rf.requestNewerTermChan <- struct{}{}
+	}
+	// 3. if an exist entry conflicts with a new one ,delete the existing entry and all that follow it
+	// 4.append any new entries not already in the log
+	rf.log = append(rf.log[:args.prevLogIndex + LogIndexOffset],args.entries...)
+
+	// 5. if leaderCommit > CommitIndex
+	if rf.commitIndex < args.leaderCommit {
+		if args.leaderCommit < args.entries[len(args.entries)-1].logStatus.LogIndex {
+			rf.commitIndex = args.leaderCommit
+		} else {
+			rf.commitIndex = args.entries[len(args.entries)-1].logStatus.LogIndex
+		}
+	}
+	*reply = AppendEntriesReply{rf.currentTerm, true}
+	rf.curLeaderAppendChan <- struct{}{}
+	return
+}
+
+func (rf *Raft) sendHeartBeats() {
+	for i:=0;i<len(rf.peers);i++ {
+		if rf.me == i {
+			continue
+		}
+		go func(peerId int) {
+			args := AppendEntriesArgs{rf.currentTerm,
+				rf.me,
+				IndexType(len(rf.log)-LogIndexOffset),
+				rf.log[len(rf.log)-LogIndexOffset].logStatus.LogTerm,
+				[]LogEntries{},
+				rf.commitIndex,
+			}
+			reply := AppendEntriesReply{}
+			if rf.sendAppendEntries(peerId, &args, &reply) != false {
+				if reply.term > rf.currentTerm {
+					rf.currentTerm = reply.term
+					rf.replyNewerTermChan <- struct{}{}
 					return
 				}
-			case <-rf.voteGrantedChan:
-				{
-					voteGranted++
-					if 2*voteGranted > len(rf.peers) {
-						rf.electionDoneChan <- struct{}{}
-						return
-					}
-				}
 			}
-		}
-	}()
+		}(i)
+
+	}
 }
 
 func (rf *Raft) MainLoop() {
-	go func() {
-		for {
-			select {
-			case LogEntries := <-rf.logEntriesChan:
-				{
-					if LogEntries.logStatus.LogTerm > rf.currentTerm {
-						rf.currentTerm = LogEntries.logStatus.LogTerm
-						rf.votedFor = VotedForNone
-						rf.validLogEntriesChan <- LogEntries
-					}
-				}
-			}
-		}
-	}()
 
 	status := Follower
 	for {
 		switch status {
 		case Follower:
 			{
+				go func() {
+					for {
+						select {
+						case <-rf.replyNewerTermChan:
+							{
+								status = Follower
+							}
+						case <-rf.requestNewerTermChan: {
+							return
+						}
+						case <- rf.leaveFollower: {
+							return
+						}
+
+						}
+					}
+				}()
+
 				select {
 				//接收当前领导人的心跳\附加日志 任期需大于等于当前任期
-
-				case <-rf.validLogEntriesChan:
+				case <-rf.curLeaderAppendChan:
 					{
-						// 收到有效领导人的LogEntries
+						// status = Follower
+						// 收到有效领导人的LogEntries 刷新election timeout
 						// do handleLogEntries
 					}
 				case <-rf.hasVotedChan:
 					{
-						// 投过票就不能成为候选人
+						// status = Follower
+						// 投过票 刷新election timeout
 						// be follower
 					}
 				// Candidate status
 				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
 					{
 						status = Candidate
+						rf.leaveFollower <- struct{}{}
 					}
 				}
 			}
@@ -288,8 +381,8 @@ func (rf *Raft) MainLoop() {
 				// Election timeout
 				// becomes a candidate and starts a new election term
 				go rf.election()
+				go rf.waitElectionResult()
 				// 在转变成候选人后就立即开始选举过程
-
 
 				//* 重置选举超时计时器
 				select {
@@ -298,9 +391,15 @@ func (rf *Raft) MainLoop() {
 					{
 						status = Leader
 						// 发送空的附加日志 RPC（心跳）给其他所有的服务器；在一定的空余时间之后不停的重复发送，以阻止跟随者超时
+						rf.sendHeartBeats()
 					}
 				// 转为Follower
-				case <-rf.validLogEntriesChan:
+				case <-rf.replyNewerTermChan:
+					{
+						status = Follower
+					}
+
+				case <-rf.requestNewerTermChan:
 					{
 						status = Follower
 					}
@@ -317,8 +416,18 @@ func (rf *Raft) MainLoop() {
 
 		case Leader:
 			{
+				go func() {
+					select {
+					case <-time.After(100*time.Microsecond):
+						rf.sendHeartBeats()
+					}
+				}()
 				select {
-				case <-rf.validLogEntriesChan:
+				case <-rf.requestNewerTermChan:
+					{
+						status = Follower
+					}
+				case <-rf.replyNewerTermChan:
 					{
 						status = Follower
 					}
@@ -327,7 +436,6 @@ func (rf *Raft) MainLoop() {
 			}
 
 		}
-
 	}
 }
 
@@ -350,12 +458,12 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		return
 	}
 	// 如果 votedFor 为空或者为 candidateId，并且候选人的日志至少和自己一样新，那么就投票给他
-	if rf.votedFor == VotedForNone || rf.votedFor == args.candidateId {
-		rf.votedFor = args.candidateId
+	if rf.votedFor == VotedForNone || rf.votedFor == args.candidateId && int(args.lastLogIndex) >= len(rf.log) - LogIndexOffset{
 		if rf.currentTerm < args.term {
 			rf.currentTerm = args.term
-			rf.votedFor = VotedForNone
+			rf.requestNewerTermChan <- struct{}{}
 		}
+		rf.votedFor = args.candidateId
 		rf.hasVotedChan <- struct{}{}
 		*reply = RequestVoteReply{
 			rf.currentTerm, true,
