@@ -29,8 +29,6 @@ import "../labrpc"
 // import "bytes"
 // import "../labgob"
 
-
-
 //
 // as each Raft peer becomes aware that successive log entries are
 // committed, the peer should send an ApplyMsg to the service (or
@@ -52,12 +50,12 @@ type TermType int
 type ElectionStatusType int
 
 const (
-	Follower = 0
-	Candidate = 1
-	Leader = 2
-	ElectionTimeoutSectionStart int64 = 150
+	Follower                                     = 0
+	Candidate                                    = 1
+	Leader                                       = 2
+	ElectionTimeoutSectionStart    int64         = 150
 	ElectionTimeoutSectionDuration time.Duration = 150
-	VotedForNone = -1
+	VotedForNone                                 = -1
 )
 
 //
@@ -75,50 +73,51 @@ type Raft struct {
 	// state a Raft server must maintain.
 
 	// persister statue
-	currentTerm TermType // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
-	votedFor int //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
-	log []LogEntries //日志条目;每个条目包含了用于状态机的命令，以及领导者接收到该条目时的任期（第一个索引为1）
+	currentTerm TermType     // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
+	votedFor    int          //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
+	log         []LogEntries //日志条目;每个条目包含了用于状态机的命令，以及领导者接收到该条目时的任期（第一个索引为1）
 
 	// volatility statue
 	commitIndex IndexType
 	lastApplied IndexType
 	// leader volatility statue
-	nextIndex []IndexType //对于每一台服务器，发送到该服务器的下一个日志条目的索引（初始值为领导者最后的日志条目的索引+1）
+	nextIndex  []IndexType //对于每一台服务器，发送到该服务器的下一个日志条目的索引（初始值为领导者最后的日志条目的索引+1）
 	matchIndex []IndexType //对于每一台服务器，已知的已经复制到该服务器的最高日志条目的索引（初始值为0，单调递增）
 
 	electionStatus ElectionStatusType
 
 	// definitions of chan
-	logEntriesChan chan LogEntries
-	electionDoneChan chan struct{}
-	electionCancelChan chan struct{}
+	hasVotedChan        chan struct{}
+	logEntriesChan      chan LogEntries
+	electionDoneChan    chan struct{}
 	electionTimeoutChan chan struct{}
-	voteGrantedChan	chan struct{}
+	voteGrantedChan     chan struct{}
+	validLogEntriesChan chan LogEntries
 }
 
 type LogEntries struct {
-	LogTerm TermType
+	logStatus LogStatus
 }
 
 type LogStatus struct {
 	LogIndex IndexType
-	LogTerm	TermType
+	LogTerm  TermType
 }
 
-
 type AppendEntriesArgs struct {
-	term TermType
-	leaderId int
+	term         TermType
+	leaderId     int
 	prevLogIndex IndexType
-	prevLogTerm TermType
-	entries []LogEntries
+	prevLogTerm  TermType
+	entries      []LogEntries
 	leaderCommit IndexType
 }
 
 type AppendEntriesReply struct {
-	term TermType
+	term    TermType
 	success bool
 }
+
 // return currentTerm and whether this server
 // believes it is the leader.
 func (rf *Raft) GetState() (int, bool) {
@@ -145,7 +144,6 @@ func (rf *Raft) persist() {
 	// rf.persister.SaveRaftState(data)
 }
 
-
 //
 // restore previously persisted state.
 //
@@ -168,18 +166,16 @@ func (rf *Raft) readPersist(data []byte) {
 	// }
 }
 
-
-
 //
 // example RequestVote RPC arguments structure.
 // field names must start with capital letters!
 //
 type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
-	term TermType
-	candidateId int
+	term         TermType
+	candidateId  int
 	lastLogIndex IndexType
-	lastLogTerm TermType
+	lastLogTerm  TermType
 }
 
 //
@@ -188,7 +184,7 @@ type RequestVoteArgs struct {
 //
 type RequestVoteReply struct {
 	// Your data here (2A).
-	term TermType
+	term        TermType
 	voteGranted bool
 }
 
@@ -196,107 +192,149 @@ type RequestVoteReply struct {
 // example RequestVote RPC handler.
 //
 func (rf *Raft) election() {
-	rf.currentTerm ++
+	//* 自增当前的任期号（currentTerm）
+	//* 给自己投票
+
+	//* 发送请求投票的 RPC 给其他所有服务器
+
+	rf.currentTerm++
 	rf.votedFor = rf.me
 	// sendRequestVote
-	for i:=0;i<len(rf.peers);i++ {
+	for i := 0; i < len(rf.peers); i++ {
 		if i == rf.me {
 			continue
 		}
-		args := RequestVoteArgs{
-			rf.currentTerm,
-			rf.me,
-			IndexType(len(rf.log)),
-			rf.log[len(rf.log)-1].LogTerm,
-		}
-		reply := RequestVoteReply{}
-		if rf.sendRequestVote(i,&args,&reply) != false {
-			if reply.voteGranted {
-				rf.voteGrantedChan <- struct{}{}
+		// sendRequestVote
+		go func(peerId int) {
+			args := RequestVoteArgs{
+				rf.currentTerm,
+				rf.me,
+				IndexType(len(rf.log)),
+				rf.log[len(rf.log)-1].logStatus.LogTerm,
 			}
-		}
+			reply := RequestVoteReply{}
+			if rf.sendRequestVote(peerId, &args, &reply) != false {
+				if reply.voteGranted {
+					rf.voteGrantedChan <- struct{}{}
+				}
+			}
+		}(i)
 	}
-
+	// wait for voteGrantedChan or electionTimeoutChan
 	go func() {
 		for {
 			voteGranted := 1
 			select {
-			case <- rf.electionTimeoutChan: { return }
-			case <- rf.voteGrantedChan: {
-				voteGranted ++
-				if 2*voteGranted > len(rf.peers) {
-					rf.electionDoneChan <- struct{}{}
+			case <-rf.electionTimeoutChan:
+				{
+					return
 				}
-			}
-			//接收心跳包
-			case <-rf.logEntriesChan: {
-				//如果这个领导人的任期号（包含在此次的 RPC中）不小于候选人当前的任期号，那么候选人会承认领导人合法并回到跟随者状态。
-				rf.electionCancelChan <- struct{}{}
-				//如果此次 RPC 中的任期号比自己小，那么候选人就会拒绝这次的 RPC 并且继续保持候选人状态。
-			}
+			case <-rf.voteGrantedChan:
+				{
+					voteGranted++
+					if 2*voteGranted > len(rf.peers) {
+						rf.electionDoneChan <- struct{}{}
+						return
+					}
+				}
 			}
 		}
 	}()
 }
 
-func (rf *Raft) ElectionTimeoutLoop() {
+func (rf *Raft) MainLoop() {
+	go func() {
+		for {
+			select {
+			case LogEntries := <-rf.logEntriesChan:
+				{
+					if LogEntries.logStatus.LogTerm > rf.currentTerm {
+						rf.currentTerm = LogEntries.logStatus.LogTerm
+						rf.votedFor = VotedForNone
+						rf.validLogEntriesChan <- LogEntries
+					}
+				}
+			}
+		}
+	}()
+
 	status := Follower
 	for {
 		switch status {
-		case Follower: {
-			select {
-			//接收心跳包
-			case <-rf.logEntriesChan: {
-				// do handleLogEntries
-			}
+		case Follower:
+			{
+				select {
+				//接收当前领导人的心跳\附加日志 任期需大于等于当前任期
 
-			// Candidate status
-			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
-				status = Candidate
+				case <-rf.validLogEntriesChan:
+					{
+						// 收到有效领导人的LogEntries
+						// do handleLogEntries
+					}
+				case <-rf.hasVotedChan:
+					{
+						// 投过票就不能成为候选人
+						// be follower
+					}
+				// Candidate status
+				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
+					{
+						status = Candidate
+					}
+				}
 			}
-			}
-		}
-		case Candidate: {
-			// Election timeout
-			// becomes a candidate and starts a new election term
-
-			select {
-			// 选举完成
-			case <-rf.electionDoneChan :{
-				status = Leader
-			}
-			// 转为Follower
-			case <- rf.electionCancelChan :{
-				status = Follower
-			}
-			// 选举超时
-			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
-				// status = Candidate
-				rf.electionTimeoutChan <- struct{}{}
-			}
-			}
-			//选举过程
-			//go func() {
-
-			//}()
+		case Candidate:
+			{
+				// Election timeout
+				// becomes a candidate and starts a new election term
+				go rf.election()
+				// 在转变成候选人后就立即开始选举过程
 
 
-		}
+				//* 重置选举超时计时器
+				select {
+				// 选举完成 成为Leader
+				case <-rf.electionDoneChan:
+					{
+						status = Leader
+						// 发送空的附加日志 RPC（心跳）给其他所有的服务器；在一定的空余时间之后不停的重复发送，以阻止跟随者超时
+					}
+				// 转为Follower
+				case <-rf.validLogEntriesChan:
+					{
+						status = Follower
+					}
 
-		//case Leader: {
-		//
-		//}
+				// 选举超时
+				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
+					{
+						// status = Candidate
+						rf.electionTimeoutChan <- struct{}{}
+					}
+				}
+
+			}
+
+		case Leader:
+			{
+				select {
+				case <-rf.validLogEntriesChan:
+					{
+						status = Follower
+					}
+
+				}
+			}
 
 		}
 
 	}
 }
 
-
-func isLogNewer(log1 LogStatus,log2 LogStatus) bool{
+func isLogNewer(log1 LogStatus, log2 LogStatus) bool {
 	if log1.LogTerm > log2.LogTerm {
 		return true
-	} else if log1.LogTerm == log2.LogTerm && log1.LogIndex >= log2.LogIndex{
+	} else if log1.LogTerm == log2.LogTerm && log1.LogIndex >= log2.LogIndex {
 		return true
 	}
 	return false
@@ -307,25 +345,25 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// 如果`term < currentTerm`返回 false
 	if rf.currentTerm > args.term {
 		*reply = RequestVoteReply{
-			rf.currentTerm,false,
+			rf.currentTerm, false,
 		}
 		return
 	}
 	// 如果 votedFor 为空或者为 candidateId，并且候选人的日志至少和自己一样新，那么就投票给他
-	if (rf.votedFor == VotedForNone || rf.votedFor == args.candidateId) &&
-		isLogNewer(LogStatus{args.lastLogIndex,args.lastLogTerm},LogStatus{IndexType(len(rf.log)),rf.log[len(rf.log)-1].LogTerm})  {
+	if rf.votedFor == VotedForNone || rf.votedFor == args.candidateId {
 		rf.votedFor = args.candidateId
-		if rf.currentTerm != args.term {
+		if rf.currentTerm < args.term {
 			rf.currentTerm = args.term
 			rf.votedFor = VotedForNone
 		}
+		rf.hasVotedChan <- struct{}{}
 		*reply = RequestVoteReply{
-			rf.currentTerm,true,
+			rf.currentTerm, true,
 		}
 		return
 	}
 	*reply = RequestVoteReply{
-		rf.currentTerm,false,
+		rf.currentTerm, false,
 	}
 	return
 }
@@ -364,7 +402,6 @@ func (rf *Raft) sendRequestVote(server int, args *RequestVoteArgs, reply *Reques
 	return ok
 }
 
-
 //
 // the service using Raft (e.g. a k/v server) wants to start
 // agreement on the next command to be appended to Raft's log. if this
@@ -385,7 +422,6 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := true
 
 	// Your code here (2B).
-
 
 	return index, term, isLeader
 }
@@ -429,15 +465,14 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf.persister = persister
 	rf.me = me
 
-	log.Println("rf.peers:",peers)
-	log.Println("rf.persister:",persister)
-	log.Println("rf.me:",me)
+	log.Println("rf.peers:", peers)
+	log.Println("rf.persister:", persister)
+	log.Println("rf.me:", me)
 
 	// Your initialization code here (2A, 2B, 2C).
 
 	// initialize from state persisted before a crash
 	rf.readPersist(persister.ReadRaftState())
-
 
 	return rf
 }
