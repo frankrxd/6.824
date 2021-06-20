@@ -88,7 +88,12 @@ type Raft struct {
 
 	electionStatus ElectionStatusType
 
-	electionChan chan struct{}
+	// definitions of chan
+	logEntriesChan chan LogEntries
+	electionDoneChan chan struct{}
+	electionCancelChan chan struct{}
+	electionTimeoutChan chan struct{}
+	voteGrantedChan	chan struct{}
 }
 
 type LogEntries struct {
@@ -190,6 +195,50 @@ type RequestVoteReply struct {
 //
 // example RequestVote RPC handler.
 //
+func (rf *Raft) election() {
+	rf.currentTerm ++
+	rf.votedFor = rf.me
+	// sendRequestVote
+	for i:=0;i<len(rf.peers);i++ {
+		if i == rf.me {
+			continue
+		}
+		args := RequestVoteArgs{
+			rf.currentTerm,
+			rf.me,
+			IndexType(len(rf.log)),
+			rf.log[len(rf.log)-1].LogTerm,
+		}
+		reply := RequestVoteReply{}
+		if rf.sendRequestVote(i,&args,&reply) != false {
+			if reply.voteGranted {
+				rf.voteGrantedChan <- struct{}{}
+			}
+		}
+	}
+
+	go func() {
+		for {
+			voteGranted := 1
+			select {
+			case <- rf.electionTimeoutChan: { return }
+			case <- rf.voteGrantedChan: {
+				voteGranted ++
+				if 2*voteGranted > len(rf.peers) {
+					rf.electionDoneChan <- struct{}{}
+				}
+			}
+			//接收心跳包
+			case <-rf.logEntriesChan: {
+				//如果这个领导人的任期号（包含在此次的 RPC中）不小于候选人当前的任期号，那么候选人会承认领导人合法并回到跟随者状态。
+				rf.electionCancelChan <- struct{}{}
+				//如果此次 RPC 中的任期号比自己小，那么候选人就会拒绝这次的 RPC 并且继续保持候选人状态。
+			}
+			}
+		}
+	}()
+}
+
 func (rf *Raft) ElectionTimeoutLoop() {
 	status := Follower
 	for {
@@ -197,86 +246,46 @@ func (rf *Raft) ElectionTimeoutLoop() {
 		case Follower: {
 			select {
 			//接收心跳包
-			case <-rf.electionChan: {
-
+			case <-rf.logEntriesChan: {
+				// do handleLogEntries
 			}
 
 			// Candidate status
 			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
 				status = Candidate
 			}
-
 			}
 		}
 		case Candidate: {
 			// Election timeout
 			// becomes a candidate and starts a new election term
+
 			select {
 			// 选举完成
-			case <- CandidateDone {
+			case <-rf.electionDoneChan :{
 				status = Leader
 			}
 			// 转为Follower
-			case <- SwitchFollower {
+			case <- rf.electionCancelChan :{
 				status = Follower
 			}
-
 			// 选举超时
 			case <-time.After(( time.Duration(rand.Int63n(ElectionTimeoutSectionStart))  + ElectionTimeoutSectionDuration) * time.Millisecond): {
-				 // status = Candidate
-				选举超时 <- struct{}
+				// status = Candidate
+				rf.electionTimeoutChan <- struct{}{}
 			}
 			}
+			//选举过程
+			//go func() {
 
-			// 选举过程
-			go func() {
-				go func() {
-					for {
-						voteGranted := 1
-						select {
-						case <- 选举超时 { return }
-						case <- voteGrantedChan {
-							voteGranted ++
-							if 2*voteGranted > len(rf.peers) {	CandidateDone<-struct{}	}
-						}
-						//接收心跳包
-						case <-rf.electionChan: {
-							//如果这个领导人的任期号（包含在此次的 RPC中）不小于候选人当前的任期号，那么候选人会承认领导人合法并回到跟随者状态。
-							SwitchFollower <- struct{}
-							//如果此次 RPC 中的任期号比自己小，那么候选人就会拒绝这次的 RPC 并且继续保持候选人状态。
-						}
-						}
-					}
-				}()
-				rf.currentTerm ++
-				rf.votedFor = rf.me
-				voteGranted := 1
-				// sendRequestVote
-				for i:=0;i<len(rf.peers);i++ {
-					if i == rf.me {
-						continue
-					}
-					args := RequestVoteArgs{
-						rf.currentTerm,
-						rf.me,
-						IndexType(len(rf.log)),
-						rf.log[len(rf.log)-1].LogTerm,
-					}
-					reply := RequestVoteReply{}
-					if rf.sendRequestVote(i,&args,&reply) != false {
-						if reply.voteGranted {
-							voteGranted ++
-						}
-					}
-				}
-			}()
+			//}()
 
 
 		}
 
-		case Leader: {
-
-		}
+		//case Leader: {
+		//
+		//}
 
 		}
 
