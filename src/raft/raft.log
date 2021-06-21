@@ -1,0 +1,1473 @@
+2021/06/21 21:07:18 rf.me: 0
+2021/06/21 21:07:18 rf.me: 1
+2021/06/21 21:07:18 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:07:18 rf.me: 2
+2021/06/21 21:07:18 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:07:18 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:07:18 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:07:18 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:07:18 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:07:18 ServerID:1	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:07:18 ServerID:1	Term:0	Status:Candidate
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Candidate	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:18 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:0	Term:1	CurState:0
+2021/06/21 21:07:19 ServerID:1	Term:1	CurState:2
+2021/06/21 21:07:19 ServerID:2	Term:1	CurState:0
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	CurState:0
+2021/06/21 21:07:19 ServerID:1	Term:1	CurState:2
+2021/06/21 21:07:19 ServerID:2	Term:1	CurState:0
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	CurState:0
+2021/06/21 21:07:21 ServerID:1	Term:1	CurState:2
+2021/06/21 21:07:21 ServerID:2	Term:1	CurState:0
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	CurState:0
+2021/06/21 21:07:21 ServerID:1	Term:1	CurState:2
+2021/06/21 21:07:21 ServerID:2	Term:1	CurState:0
+2021/06/21 21:07:21 rf.me: 0
+2021/06/21 21:07:21 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:07:21 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:07:21 rf.me: 1
+2021/06/21 21:07:21 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:07:21 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:07:21 rf.me: 2
+2021/06/21 21:07:21 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:07:21 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:2	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:07:21 ServerID:2	Term:0	Status:Candidate
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Candidate	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Candidate
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Candidate
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:07:21 ServerID:2	Term:2	Status:Candidate
+2021/06/21 21:07:21 ServerID:2	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:07:22 ServerID:0	Term:1	CurState:0
+2021/06/21 21:07:22 ServerID:1	Term:1	CurState:0
+2021/06/21 21:07:22 ServerID:2	Term:1	CurState:2
+2021/06/21 21:07:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Candidate
+2021/06/21 21:07:22 ServerID:0	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Candidate
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower	receiveRequestVote:&{Term:2 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:2 VoteGranted:true}
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Candidate	RequestVoteReply:{2 1 1 0}	{Term:2 VoteGranted:true}
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:2	Term:3	Status:Candidate
+2021/06/21 21:07:22 ServerID:2	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:3	Status:Candidate
+2021/06/21 21:07:22 ServerID:0	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:07:22 ServerID:2	Term:4	Status:Candidate
+2021/06/21 21:07:22 ServerID:2	Term:4	CurState:1	leaveCurElectionChan
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:07:22 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:07:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:07:22 ServerID:0	Term:2	CurState:0
+2021/06/21 21:07:22 ServerID:1	Term:2	CurState:2
+2021/06/21 21:08:35 rf.me: 0
+2021/06/21 21:08:35 rf.me: 1
+2021/06/21 21:08:35 rf.me: 2
+2021/06/21 21:08:35 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:08:35 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:08:35 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:08:35 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:08:35 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:08:35 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:08:35 ServerID:1	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:08:35 ServerID:1	Term:0	Status:Candidate
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Candidate	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:35 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:35 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	CurState:0
+2021/06/21 21:08:36 ServerID:1	Term:1	CurState:2
+2021/06/21 21:08:36 ServerID:2	Term:1	CurState:0
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	CurState:0
+2021/06/21 21:08:36 ServerID:1	Term:1	CurState:2
+2021/06/21 21:08:36 ServerID:2	Term:1	CurState:0
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:36 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:37 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:37 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	CurState:0
+2021/06/21 21:08:38 ServerID:1	Term:1	CurState:2
+2021/06/21 21:08:38 ServerID:2	Term:1	CurState:0
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	CurState:0
+2021/06/21 21:08:38 ServerID:1	Term:1	CurState:2
+2021/06/21 21:08:38 ServerID:2	Term:1	CurState:0
+2021/06/21 21:08:38 rf.me: 0
+2021/06/21 21:08:38 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:08:38 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:08:38 rf.me: 1
+2021/06/21 21:08:38 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:08:38 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:08:38 rf.me: 2
+2021/06/21 21:08:38 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:08:38 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Candidate
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Candidate
+2021/06/21 21:08:38 ServerID:2	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:08:38 ServerID:2	Term:0	Status:Candidate
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Candidate	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:38 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:1	CurState:0
+2021/06/21 21:08:39 ServerID:1	Term:1	CurState:0
+2021/06/21 21:08:39 ServerID:2	Term:1	CurState:2
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Candidate
+2021/06/21 21:08:39 ServerID:2	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveRequestVote:&{Term:2 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:2 VoteGranted:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Candidate	RequestVoteReply:{2 1 1 0}	{Term:2 VoteGranted:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:3	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:2	Term:3	Status:Candidate
+2021/06/21 21:08:39 ServerID:2	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:4	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:4	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:2	Term:4	Status:Candidate
+2021/06/21 21:08:39 ServerID:2	Term:4	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	CurState:0
+2021/06/21 21:08:39 ServerID:1	Term:2	CurState:2
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:false}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:false}
+2021/06/21 21:08:39 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:false}
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:false}
+2021/06/21 21:08:39 ServerID:0	Term:5	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:5	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:6	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:6	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:2	Term:5	Status:Candidate
+2021/06/21 21:08:39 ServerID:2	Term:5	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:7	Status:Candidate
+2021/06/21 21:08:39 ServerID:0	Term:7	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:6	Status:Candidate
+2021/06/21 21:08:39 ServerID:2	Term:6	CurState:1	leaveCurElectionChan
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:2	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:08:39 ServerID:1	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:08:39 ServerID:0	Term:2	CurState:0
+2021/06/21 21:08:39 ServerID:1	Term:2	CurState:2
+2021/06/21 21:08:39 ServerID:2	Term:2	CurState:0
+2021/06/21 21:09:16 rf.me: 0
+2021/06/21 21:09:16 rf.me: 1
+2021/06/21 21:09:16 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:09:16 rf.me: 2
+2021/06/21 21:09:16 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:09:16 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:09:16 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:09:16 ServerID:2	Term:0	Status:Candidate
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Candidate	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Candidate	RequestVoteReply:{1 2 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:16 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	CurState:0
+2021/06/21 21:09:17 ServerID:1	Term:1	CurState:0
+2021/06/21 21:09:17 ServerID:2	Term:1	CurState:2
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	CurState:0
+2021/06/21 21:09:17 ServerID:1	Term:1	CurState:0
+2021/06/21 21:09:17 ServerID:2	Term:1	CurState:2
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:17 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:17 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:18 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	CurState:0
+2021/06/21 21:09:19 ServerID:1	Term:1	CurState:0
+2021/06/21 21:09:19 ServerID:2	Term:1	CurState:2
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	CurState:0
+2021/06/21 21:09:19 ServerID:1	Term:1	CurState:0
+2021/06/21 21:09:19 ServerID:2	Term:1	CurState:2
+2021/06/21 21:09:19 rf.me: 0
+2021/06/21 21:09:19 ServerID:0	Term:0	MainLoop Start
+2021/06/21 21:09:19 ServerID:0	Term:0	Status:Follower
+2021/06/21 21:09:19 rf.me: 1
+2021/06/21 21:09:19 ServerID:1	Term:0	MainLoop Start
+2021/06/21 21:09:19 ServerID:1	Term:0	Status:Follower
+2021/06/21 21:09:19 rf.me: 2
+2021/06/21 21:09:19 ServerID:2	Term:0	MainLoop Start
+2021/06/21 21:09:19 ServerID:2	Term:0	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Candidate
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Candidate
+2021/06/21 21:09:19 ServerID:1	Term:0	Status:Candidate	ElectionTimeout
+2021/06/21 21:09:19 ServerID:1	Term:0	Status:Candidate
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower	receiveRequestVote:&{Term:1 CandidateId:1 LastLogIndex:1 LastLogTerm:0}	&{Term:1 VoteGranted:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Candidate	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Candidate	RequestVoteReply:{1 1 1 0}	{Term:1 VoteGranted:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:09:19 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:19 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:19 ServerID:1	Term:2	Status:Candidate
+2021/06/21 21:09:19 ServerID:1	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Follower
+2021/06/21 21:09:20 ServerID:0	Term:1	Status:Follower
+2021/06/21 21:09:20 ServerID:0	Term:1	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:1 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:1 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:2	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:0	Term:1	CurState:0
+2021/06/21 21:09:20 ServerID:1	Term:1	CurState:2
+2021/06/21 21:09:20 ServerID:2	Term:1	CurState:0
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:3	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:1	Term:3	Status:Candidate
+2021/06/21 21:09:20 ServerID:1	Term:3	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Candidate	ElectionTimeout
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveRequestVote:&{Term:2 CandidateId:2 LastLogIndex:1 LastLogTerm:0}	&{Term:2 VoteGranted:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Candidate	RequestVoteReply:{2 2 1 0}	{Term:2 VoteGranted:true}
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:4	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:0	Term:4	Status:Candidate
+2021/06/21 21:09:20 ServerID:1	Term:4	Status:Candidate
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:1	Term:4	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:20 ServerID:2	Term:2	CurState:2
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:false}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:false}
+2021/06/21 21:09:20 ServerID:1	Term:1	Status:Leader	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:false}
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:1 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:false}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:5	Status:Candidate
+2021/06/21 21:09:20 ServerID:1	Term:5	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:0	Term:5	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:5	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:6	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:6	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:1	Term:6	Status:Candidate
+2021/06/21 21:09:20 ServerID:1	Term:6	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:20 ServerID:2	Term:2	Status:Leader	AppendEntriesReply:{Term:2 LeaderId:2 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:20 ServerID:0	Term:7	Status:Candidate
+2021/06/21 21:09:20 ServerID:0	Term:7	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:21 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:21 ServerID:2	Term:2	CurState:2
+2021/06/21 21:09:21 ServerID:1	Term:7	Status:Candidate
+2021/06/21 21:09:21 ServerID:1	Term:7	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:8	Status:Candidate
+2021/06/21 21:09:21 ServerID:0	Term:8	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:1	Term:8	Status:Candidate
+2021/06/21 21:09:21 ServerID:1	Term:8	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:9	Status:Candidate
+2021/06/21 21:09:21 ServerID:0	Term:9	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:21 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:1	Term:9	Status:Candidate
+2021/06/21 21:09:21 ServerID:1	Term:9	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:10	Status:Candidate
+2021/06/21 21:09:21 ServerID:0	Term:10	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:11	Status:Candidate
+2021/06/21 21:09:21 ServerID:0	Term:11	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:10	Status:Candidate
+2021/06/21 21:09:21 ServerID:1	Term:10	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:21 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:21 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:22 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:12	Status:Candidate
+2021/06/21 21:09:22 ServerID:0	Term:12	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:1	Term:11	Status:Candidate
+2021/06/21 21:09:22 ServerID:1	Term:11	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:13	Status:Candidate
+2021/06/21 21:09:22 ServerID:0	Term:13	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:12	Status:Candidate
+2021/06/21 21:09:22 ServerID:1	Term:12	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:14	Status:Candidate
+2021/06/21 21:09:22 ServerID:0	Term:14	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:22 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:1	Term:13	Status:Candidate
+2021/06/21 21:09:22 ServerID:1	Term:13	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:15	Status:Candidate
+2021/06/21 21:09:22 ServerID:0	Term:15	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:16	Status:Candidate
+2021/06/21 21:09:22 ServerID:0	Term:16	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:1	Term:14	Status:Candidate
+2021/06/21 21:09:22 ServerID:1	Term:14	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:22 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:22 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:22 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:23 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:1	Term:15	Status:Candidate
+2021/06/21 21:09:23 ServerID:1	Term:15	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:0	Term:17	Status:Candidate
+2021/06/21 21:09:23 ServerID:0	Term:17	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:1	Term:16	Status:Candidate
+2021/06/21 21:09:23 ServerID:1	Term:16	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:18	Status:Candidate
+2021/06/21 21:09:23 ServerID:0	Term:18	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:23 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:23 ServerID:1	Term:17	Status:Candidate
+2021/06/21 21:09:23 ServerID:1	Term:17	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:19	Status:Candidate
+2021/06/21 21:09:23 ServerID:0	Term:19	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:18	Status:Candidate
+2021/06/21 21:09:23 ServerID:1	Term:18	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:20	Status:Candidate
+2021/06/21 21:09:23 ServerID:0	Term:20	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:23 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:23 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:23 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:24 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:1	Term:19	Status:Candidate
+2021/06/21 21:09:24 ServerID:1	Term:19	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:21	Status:Candidate
+2021/06/21 21:09:24 ServerID:0	Term:21	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:1	Term:20	Status:Candidate
+2021/06/21 21:09:24 ServerID:1	Term:20	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:22	Status:Candidate
+2021/06/21 21:09:24 ServerID:0	Term:22	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:21	Status:Candidate
+2021/06/21 21:09:24 ServerID:1	Term:21	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:24 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:23	Status:Candidate
+2021/06/21 21:09:24 ServerID:0	Term:23	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:22	Status:Candidate
+2021/06/21 21:09:24 ServerID:1	Term:22	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:23	Status:Candidate
+2021/06/21 21:09:24 ServerID:1	Term:23	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:0	Term:24	Status:Candidate
+2021/06/21 21:09:24 ServerID:0	Term:24	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:24 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:24 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:24 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:24 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:25	Status:Candidate
+2021/06/21 21:09:25 ServerID:0	Term:25	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:1	Term:24	Status:Candidate
+2021/06/21 21:09:25 ServerID:1	Term:24	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:25	Status:Candidate
+2021/06/21 21:09:25 ServerID:1	Term:25	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:0	Term:26	Status:Candidate
+2021/06/21 21:09:25 ServerID:0	Term:26	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:25 ServerID:1	Term:2	CurState:0
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:27	Status:Candidate
+2021/06/21 21:09:25 ServerID:1	Term:26	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:1	Term:26	Status:Candidate
+2021/06/21 21:09:25 ServerID:0	Term:27	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:27	Status:Candidate
+2021/06/21 21:09:25 ServerID:1	Term:27	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:28	Status:Candidate
+2021/06/21 21:09:25 ServerID:0	Term:28	CurState:1	leaveCurElectionChan
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:2	Term:1	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower	receiveAppendEntries:&{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	&{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:0	Term:2	Status:Follower
+2021/06/21 21:09:25 ServerID:1	Term:2	Status:Follower	AppendEntriesReply:{Term:2 LeaderId:1 PrevLogIndex:1 PrevLogTerm:0 Entries:[] LeaderCommit:0}	{Term:2 Success:true}
+2021/06/21 21:09:25 ServerID:2	Term:2	Status:Leader	sendHeartBeats
+2021/06/21 21:09:25 ServerID:0	Term:2	CurState:0
+2021/06/21 21:09:25 ServerID:1	Term:2	CurState:0
