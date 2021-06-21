@@ -18,7 +18,6 @@ package raft
 //
 
 import (
-	"fmt"
 	"log"
 	"math/rand"
 	"os"
@@ -129,7 +128,7 @@ func (rf *Raft) GetState() (int, bool) {
 	term = int(rf.currentTerm)
 	isleader = rf.curStatus == Leader
 	rf.mu.Unlock()
-	log.Printf("ServerID:%v\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
+	//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
 	return term,isleader
  }
 
@@ -217,13 +216,12 @@ func (rf *Raft) waitElectionResult() {
 		select {
 		case <-rf.leaveCurElectionChan:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tCurState:%v\tleaveCurElectionChan",rf.me,rf.currentTerm,rf.curStatus)
+				//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v\tleaveCurElectionChan",rf.me,rf.currentTerm,rf.curStatus)
 				return
 			}
 		case <-rf.voteGrantedChan:
 			{
 				voteGranted++
-				fmt.Printf("rf.me:%v\tTerm:%v\tvoteGranted:%v\n",rf.me,rf.currentTerm,voteGranted)
 				if 2*voteGranted > len(rf.peers) {
 					rf.electionDoneChan <- struct{}{}
 					return
@@ -240,7 +238,6 @@ func (rf *Raft) election() {
 	rf.mu.Lock()
 	rf.currentTerm++
 	rf.votedFor = rf.me
-	//fmt.Printf("rf.me:%v\tTerm:%v\tvoteGranted:%v\n",rf.me,rf.currentTerm,1)
 	rf.mu.Unlock()
 	// sendRequestVote
 	for i := 0; i < len(rf.peers); i++ {
@@ -259,7 +256,7 @@ func (rf *Raft) election() {
 			reply := RequestVoteReply{}
 			rf.mu.Unlock()
 			if rf.sendRequestVote(peerId, &args, &reply) != false {
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tRequestVoteReply:%v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tRequestVoteReply:%v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 				rf.mu.Lock()
 				if reply.Term > rf.currentTerm {
 					rf.currentTerm = reply.Term
@@ -296,13 +293,13 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	if args.Term < rf.currentTerm {
 		*reply = AppendEntriesReply{rf.currentTerm, false}
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	// 2.if log doesn't contain an entry at PrevLogIndex whose Term matches prevLogterm    index = 1 logIndex1 len(log) =2
 	if int(args.PrevLogIndex) > len(rf.log)-LogIndexOffset {
 		*reply = AppendEntriesReply{rf.currentTerm, false}
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 
@@ -313,7 +310,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	if rf.log[args.PrevLogIndex].LogStatus.LogTerm != args.PrevLogTerm {
 		//return // false
 		*reply = AppendEntriesReply{rf.currentTerm, false}
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 
@@ -331,7 +328,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 	*reply = AppendEntriesReply{rf.currentTerm, true}
 	rf.curLeaderAppendChan <- struct{}{}
-	log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
 }
 
@@ -350,7 +347,7 @@ func (rf *Raft) sendHeartBeats() {
 			}
 			reply := AppendEntriesReply{}
 			if rf.sendAppendEntries(peerId, &args, &reply) != false {
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 				if reply.Term > rf.currentTerm {
 					rf.currentTerm = reply.Term
 					rf.votedFor = VotedForNone
@@ -371,28 +368,16 @@ func (rf *Raft) MainLoop() {
 		case Follower:
 			{
 				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,rf.currentTerm,StatusTypeName[Follower])
-				go func() {
-					for {
-						select {
-						case <-rf.replyNewerTermChan:
-							{
-								//rf.curStatus = Follower
-							}
-						case <-rf.requestNewerTermChan:
-							{
-								//rf.curStatus = Follower
-							}
-						case <-rf.leaveFollowerChan:
-							{
-								return
-							}
-
-						}
-					}
-				}()
-
 				select {
 				//接收当前领导人的心跳\附加日志 任期需大于等于当前任期
+				case <-rf.replyNewerTermChan:
+					{
+						//rf.curStatus = Follower
+					}
+				case <-rf.requestNewerTermChan:
+					{
+						//rf.curStatus = Follower
+					}
 				case <-rf.curLeaderAppendChan:
 					{
 						// status = Follower
@@ -518,7 +503,6 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	}
 
 
-
 	// 如果 votedFor 为空或者为 CandidateId，并且候选人的日志至少和自己一样新，那么就投票给他
 	if (rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId) && int(args.LastLogIndex) >= len(rf.log)-LogIndexOffset {
 		rf.votedFor = args.CandidateId
@@ -526,16 +510,14 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		*reply = RequestVoteReply{
 			rf.currentTerm, true,
 		}
-		fmt.Println("(rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId)",(rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId) && int(args.LastLogIndex) >= len(rf.log)-LogIndexOffset,rf.me,rf.currentTerm,rf.votedFor,args.CandidateId)
 
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	*reply = RequestVoteReply{
 		rf.currentTerm, false,
 	}
-	fmt.Println("(rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId)",(rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId) && int(args.LastLogIndex) >= len(rf.log)-LogIndexOffset,rf.me,rf.currentTerm,rf.votedFor,args.CandidateId)
-	log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
 }
 
@@ -593,7 +575,6 @@ func (rf *Raft) Start(command interface{}) (int, int, bool) {
 	isLeader := true
 
 	// Your code here (2B).
-
 	return index, term, isLeader
 }
 
