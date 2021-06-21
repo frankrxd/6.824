@@ -20,7 +20,6 @@ package raft
 import (
 	"log"
 	"math/rand"
-	"os"
 	"sync"
 	"time"
 )
@@ -43,8 +42,9 @@ import "../labrpc"
 //
 
 func init()  {
-	outfile, _ := os.OpenFile("raft.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-	log.SetOutput(outfile)
+	//outfile, _ := os.OpenFile("raft.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+	//log.SetOutput(outfile)
+	//log.SetOutput(ioutil.Discard)
 }
 
 type ApplyMsg struct {
@@ -72,6 +72,8 @@ var StatusTypeName = []string{"Follower","Candidate","Leader"}
 //
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
+	mu1        sync.Mutex          // Lock to protect shared access to this peer's state
+
 	peers     []*labrpc.ClientEnd // RPC end points of all peers
 	persister *Persister          // Object to hold this peer's persisted state
 	me        int                 // this peer's index into peers[]
@@ -83,7 +85,7 @@ type Raft struct {
 
 	// persister statue
 	currentTerm TermType     // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
-	curStatus	int
+	curStatus	int32
 	votedFor    int          //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
 	log         []LogEntries //日志条目;每个条目包含了用于状态机的命令，以及领导者接收到该条目时的任期（第一个索引为1）
 
@@ -126,8 +128,8 @@ func (rf *Raft) GetState() (int, bool) {
 	// Your code here (2A).
 	rf.mu.Lock()
 	term = int(rf.currentTerm)
-	isleader = rf.curStatus == Leader
 	rf.mu.Unlock()
+	isleader = atomic.LoadInt32(&rf.curStatus) == Leader
 	//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
 	return term,isleader
  }
@@ -283,12 +285,14 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	// 1.reply false if Term < currentTerm
+	//rf.mu.Lock()
+	//defer rf.mu.Unlock()
+
 	if rf.currentTerm < args.Term {
 		rf.currentTerm = args.Term
 		rf.votedFor = VotedForNone
 		rf.requestNewerTermChan <- struct{}{}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
-
 	}
 
 	if args.Term < rf.currentTerm {
@@ -338,6 +342,7 @@ func (rf *Raft) sendHeartBeats() {
 			continue
 		}
 		go func(peerId int) {
+			rf.mu.Lock()
 			args := AppendEntriesArgs{rf.currentTerm,
 				rf.me,
 				IndexType(len(rf.log) - LogIndexOffset),
@@ -345,9 +350,11 @@ func (rf *Raft) sendHeartBeats() {
 				[]LogEntries{},
 				rf.commitIndex,
 			}
+			rf.mu.Unlock()
 			reply := AppendEntriesReply{}
 			if rf.sendAppendEntries(peerId, &args, &reply) != false {
 				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+				rf.mu.Lock()
 				if reply.Term > rf.currentTerm {
 					rf.currentTerm = reply.Term
 					rf.votedFor = VotedForNone
@@ -355,6 +362,7 @@ func (rf *Raft) sendHeartBeats() {
 					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					return
 				}
+				rf.mu.Unlock()
 			}
 		}(i)
 
@@ -364,7 +372,7 @@ func (rf *Raft) sendHeartBeats() {
 func (rf *Raft) MainLoop() {
 	log.Printf("ServerID:%v\tTerm:%v\tMainLoop Start",rf.me,rf.currentTerm)
 	for {
-		switch rf.curStatus {
+		switch atomic.LoadInt32(&rf.curStatus) {
 		case Follower:
 			{
 				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,rf.currentTerm,StatusTypeName[Follower])
@@ -394,7 +402,7 @@ func (rf *Raft) MainLoop() {
 				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
 					{
 						log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tElectionTimeout",rf.me,rf.currentTerm,StatusTypeName[Candidate])
-						rf.curStatus = Candidate
+						atomic.StoreInt32(&rf.curStatus,Candidate)
 						rf.leaveFollowerChan <- struct{}{}
 					}
 				}
@@ -413,22 +421,22 @@ func (rf *Raft) MainLoop() {
 				// 选举完成 成为Leader
 				case <-rf.electionDoneChan:
 					{
-						rf.curStatus = Leader
+						atomic.StoreInt32(&rf.curStatus,Leader)
 						// 发送空的附加日志 RPC（心跳）给其他所有的服务器；在一定的空余时间之后不停的重复发送，以阻止跟随者超时
 						rf.sendHeartBeats()
 					}
 				// 转为Follower
 				case <-rf.replyNewerTermChan:
 					{
-						rf.curStatus = Follower
-						log.Println("Candidate rf.curStatus = Follower")
+						atomic.StoreInt32(&rf.curStatus,Follower)
+						//log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
 
 				case <-rf.requestNewerTermChan:
 					{
-						rf.curStatus = Follower
-						log.Println("Candidate rf.curStatus = Follower")
+						atomic.StoreInt32(&rf.curStatus,Follower)
+						//log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
 
@@ -461,12 +469,12 @@ func (rf *Raft) MainLoop() {
 				select {
 				case <-rf.requestNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						rf.leaveLeaderChan <- struct{}{}
 					}
 				case <-rf.replyNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						rf.leaveLeaderChan <- struct{}{}
 					}
 				}
@@ -487,6 +495,8 @@ func isLogNewer(log1 LogStatus, log2 LogStatus) bool {
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	// 如果`Term < currentTerm`返回 false
+	rf.mu.Lock()
+	defer rf.mu.Unlock()
 	if rf.currentTerm > args.Term {
 		*reply = RequestVoteReply{
 			rf.currentTerm, false,
