@@ -53,7 +53,7 @@ type ApplyMsg struct {
 	CommandIndex int
 }
 type IndexType int
-type TermType int
+//type int32 int
 type ElectionStatusType int
 
 const (
@@ -72,9 +72,11 @@ var StatusTypeName = []string{"Follower","Candidate","Leader"}
 //
 type Raft struct {
 	mu        sync.Mutex          // Lock to protect shared access to this peer's state
+	mutexAppendEntries	sync.Mutex
+
 	peers     []*labrpc.ClientEnd // RPC end points of all peers
 	persister *Persister          // Object to hold this peer's persisted state
-	me        int                 // this peer's index into peers[]
+	me        int32                 // this peer's index into peers[]
 	dead      int32               // set by Kill()
 
 	// Your data here (2A, 2B, 2C).
@@ -82,9 +84,9 @@ type Raft struct {
 	// state a Raft server must maintain.
 
 	// persister statue
-	currentTerm TermType     // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
-	curStatus	int
-	votedFor    int          //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
+	currentTerm int32 // 服务器已知最新的任期（在服务器首次启动的时候初始化为0，单调递增）
+	curStatus   int32
+	votedFor    int32          //	当前任期内收到选票的候选者id 如果没有投给任何候选者 则为空
 	log         []LogEntries //日志条目;每个条目包含了用于状态机的命令，以及领导者接收到该条目时的任期（第一个索引为1）
 
 	// volatility statue
@@ -101,7 +103,7 @@ type Raft struct {
 	voteReceiveChan      chan RequestVoteArgs
 	electionDoneChan     chan struct{}
 	leaveCurElectionChan chan struct{}
-	voteGrantedChan      chan struct{}
+	voteGrantedChan      chan int32
 	requestNewerTermChan chan struct{}
 	curLeaderAppendChan  chan struct{}
 	replyNewerTermChan   chan struct{}
@@ -115,7 +117,7 @@ type LogEntries struct {
 
 type LogStatus struct {
 	LogIndex IndexType
-	LogTerm  TermType
+	LogTerm  int32
 }
 
 // return currentTerm and whether this server
@@ -124,10 +126,8 @@ func (rf *Raft) GetState() (int, bool) {
 	var term int
 	var isleader bool
 	// Your code here (2A).
-	rf.mu.Lock()
-	term = int(rf.currentTerm)
-	isleader = rf.curStatus == Leader
-	rf.mu.Unlock()
+	term = int(atomic.LoadInt32(&rf.currentTerm))
+	isleader = atomic.LoadInt32(&rf.curStatus) == Leader
 	//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
 	return term,isleader
  }
@@ -176,10 +176,10 @@ func (rf *Raft) readPersist(data []byte) {
 //
 type RequestVoteArgs struct {
 	// Your data here (2A, 2B).
-	Term         TermType
-	CandidateId  int
+	Term         int32
+	CandidateId  int32
 	LastLogIndex IndexType //候选人的最后日志条目的索引值
-	LastLogTerm  TermType  //候选人最后日志条目的任期号
+	LastLogTerm  int32     //候选人最后日志条目的任期号
 }
 
 //
@@ -188,22 +188,22 @@ type RequestVoteArgs struct {
 //
 type RequestVoteReply struct {
 	// Your data here (2A).
-	Term        TermType
+	Term        int32
 	VoteGranted bool
 }
 
 type AppendEntriesArgs struct {
-	Term         TermType     //领导者的任期
-	LeaderId     int          //领导者ID
+	Term         int32        //领导者的任期
+	LeaderId     int32          //领导者ID
 	PrevLogIndex IndexType    //紧邻新日志条目之前的那个日志条目的索引
-	PrevLogTerm  TermType     //紧邻新日志条目之前的那个日志条目的任期
+	PrevLogTerm  int32        //紧邻新日志条目之前的那个日志条目的任期
 	Entries      []LogEntries //需要被保存的日志条目（被当做心跳使用时，则日志条目内容为空；为了提高效率可能一次性发送多个）
 	LeaderCommit IndexType    //领导者的已知已提交的最高的日志条目的索引
 }
 
 type AppendEntriesReply struct {
-	Term    TermType // 当前任期,对于领导者而言 它会更新自己的任期
-	Success bool     //结果为真 如果跟随者所含有的条目和prevLogIndex以及prevLogTerm匹配上了
+	Term    int32 // 当前任期,对于领导者而言 它会更新自己的任期
+	Success bool  //结果为真 如果跟随者所含有的条目和prevLogIndex以及prevLogTerm匹配上了
 }
 
 //
@@ -219,11 +219,15 @@ func (rf *Raft) waitElectionResult() {
 				//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v\tleaveCurElectionChan",rf.me,rf.currentTerm,rf.curStatus)
 				return
 			}
-		case <-rf.voteGrantedChan:
+		case term:= <-rf.voteGrantedChan:
 			{
-				voteGranted++
-				if 2*voteGranted > len(rf.peers) {
-					rf.electionDoneChan <- struct{}{}
+				if term == atomic.LoadInt32(&rf.currentTerm) {
+					voteGranted++
+					if 2*voteGranted > len(rf.peers) {
+						rf.electionDoneChan <- struct{}{}
+						return
+					}
+				} else {
 					return
 				}
 			}
@@ -235,43 +239,37 @@ func (rf *Raft) election() {
 	//* 自增当前的任期号（currentTerm）
 	//* 给自己投票
 	//* 发送请求投票的 RPC 给其他所有服务器
-	rf.mu.Lock()
-	rf.currentTerm++
-	rf.votedFor = rf.me
-	rf.mu.Unlock()
+	atomic.AddInt32(&rf.currentTerm,1)
+	atomic.StoreInt32(&rf.votedFor,rf.me)
 	// sendRequestVote
+	args := RequestVoteArgs{
+		atomic.LoadInt32(&rf.currentTerm),
+		rf.me,
+		IndexType(len(rf.log)-LogIndexOffset),
+		rf.log[len(rf.log)-LogIndexOffset].LogStatus.LogTerm,
+	}
 	for i := 0; i < len(rf.peers); i++ {
-		if i == rf.me {
+		if int32(i) == rf.me {
 			continue
 		}
 		// sendRequestVote
-		go func(peerId int) {
-			rf.mu.Lock()
-			args := RequestVoteArgs{
-				rf.currentTerm,
-				rf.me,
-				IndexType(len(rf.log)-LogIndexOffset),
-				rf.log[len(rf.log)-LogIndexOffset].LogStatus.LogTerm,
-			}
+		go func(peerId int,args *RequestVoteArgs) {
 			reply := RequestVoteReply{}
-			rf.mu.Unlock()
-			if rf.sendRequestVote(peerId, &args, &reply) != false {
+			if rf.sendRequestVote(peerId, args, &reply) != false {
 				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tRequestVoteReply:%v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
-				rf.mu.Lock()
-				if reply.Term > rf.currentTerm {
-					rf.currentTerm = reply.Term
-					rf.votedFor = VotedForNone
+				if reply.Term > atomic.LoadInt32(&rf.currentTerm) {
+					atomic.StoreInt32(&rf.currentTerm,reply.Term)
+					atomic.StoreInt32(&rf.votedFor,VotedForNone)
 					rf.replyNewerTermChan <- struct{}{}
 					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					return
 				}
-				rf.mu.Unlock()
 				if reply.VoteGranted {
 					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treply.VoteGranted",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
-					rf.voteGrantedChan <- struct{}{}
+					rf.voteGrantedChan <- reply.Term
 				}
 			}
-		}(i)
+		}(i,&args)
 	}
 	// wait for voteGrantedChan or leaveCurElectionChan
 }
@@ -283,22 +281,25 @@ func (rf *Raft) sendAppendEntries(server int, args *AppendEntriesArgs, reply *Ap
 
 func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply) {
 	// 1.reply false if Term < currentTerm
-	if rf.currentTerm < args.Term {
-		rf.currentTerm = args.Term
-		rf.votedFor = VotedForNone
+	rf.mutexAppendEntries.Lock()
+	defer rf.mutexAppendEntries.Unlock()
+	currentTerm := atomic.LoadInt32(&rf.currentTerm)
+	if currentTerm < args.Term {
+		currentTerm = args.Term
+		atomic.StoreInt32(&rf.currentTerm,args.Term)
+		atomic.StoreInt32(&rf.votedFor,VotedForNone)
 		rf.requestNewerTermChan <- struct{}{}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
-
 	}
 
-	if args.Term < rf.currentTerm {
-		*reply = AppendEntriesReply{rf.currentTerm, false}
+	if args.Term < currentTerm {
+		*reply = AppendEntriesReply{currentTerm, false}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	// 2.if log doesn't contain an entry at PrevLogIndex whose Term matches prevLogterm    index = 1 logIndex1 len(log) =2
 	if int(args.PrevLogIndex) > len(rf.log)-LogIndexOffset {
-		*reply = AppendEntriesReply{rf.currentTerm, false}
+		*reply = AppendEntriesReply{currentTerm, false}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
@@ -309,14 +310,16 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 
 	if rf.log[args.PrevLogIndex].LogStatus.LogTerm != args.PrevLogTerm {
 		//return // false
-		*reply = AppendEntriesReply{rf.currentTerm, false}
+		*reply = AppendEntriesReply{currentTerm, false}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 
 	// 3. if an exist entry conflicts with a new one ,delete the existing entry and all that follow it
 	// 4.append any new Entries not already in the log
-	rf.log = append(rf.log[:args.PrevLogIndex+LogIndexOffset], args.Entries...)
+	if len(args.Entries) > 0 {
+		rf.log = append(rf.log[:args.PrevLogIndex+LogIndexOffset], args.Entries...)
+	}
 
 	// 5. if LeaderCommit > CommitIndex
 	if rf.commitIndex < args.LeaderCommit {
@@ -326,48 +329,48 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 			rf.commitIndex = args.Entries[len(args.Entries)-1].LogStatus.LogIndex
 		}
 	}
-	*reply = AppendEntriesReply{rf.currentTerm, true}
+	*reply = AppendEntriesReply{currentTerm, true}
 	rf.curLeaderAppendChan <- struct{}{}
 	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
 }
 
 func (rf *Raft) sendHeartBeats() {
+	args := AppendEntriesArgs{atomic.LoadInt32(&rf.currentTerm),
+		rf.me,
+		IndexType(len(rf.log) - LogIndexOffset),
+		rf.log[len(rf.log)-LogIndexOffset].LogStatus.LogTerm,
+		[]LogEntries{},
+		rf.commitIndex,
+	}
 	for i := 0; i < len(rf.peers); i++ {
-		if rf.me == i {
+		if rf.me == int32(i) {
 			continue
 		}
-		go func(peerId int) {
-			args := AppendEntriesArgs{rf.currentTerm,
-				rf.me,
-				IndexType(len(rf.log) - LogIndexOffset),
-				rf.log[len(rf.log)-LogIndexOffset].LogStatus.LogTerm,
-				[]LogEntries{},
-				rf.commitIndex,
-			}
+		go func(peerId int,args *AppendEntriesArgs) {
 			reply := AppendEntriesReply{}
-			if rf.sendAppendEntries(peerId, &args, &reply) != false {
+			if rf.sendAppendEntries(peerId, args, &reply) != false {
 				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
-				if reply.Term > rf.currentTerm {
-					rf.currentTerm = reply.Term
-					rf.votedFor = VotedForNone
+				if reply.Term > atomic.LoadInt32(&rf.currentTerm){
+					atomic.StoreInt32(&rf.currentTerm,reply.Term)
+					atomic.StoreInt32(&rf.votedFor,VotedForNone)
 					rf.replyNewerTermChan <- struct{}{}
 					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					return
 				}
 			}
-		}(i)
+		}(i,&args)
 
 	}
 }
 
 func (rf *Raft) MainLoop() {
-	log.Printf("ServerID:%v\tTerm:%v\tMainLoop Start",rf.me,rf.currentTerm)
+	log.Printf("ServerID:%v\tTerm:%v\tMainLoop Start",rf.me,atomic.LoadInt32(&rf.currentTerm))
 	for {
-		switch rf.curStatus {
+		switch atomic.LoadInt32(&rf.curStatus) {
 		case Follower:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,rf.currentTerm,StatusTypeName[Follower])
+				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Follower])
 				select {
 				//接收当前领导人的心跳\附加日志 任期需大于等于当前任期
 				case <-rf.replyNewerTermChan:
@@ -393,15 +396,15 @@ func (rf *Raft) MainLoop() {
 				// Candidate status
 				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
 					{
-						log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tElectionTimeout",rf.me,rf.currentTerm,StatusTypeName[Candidate])
-						rf.curStatus = Candidate
+						log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tElectionTimeout",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
+						atomic.StoreInt32(&rf.curStatus,Candidate)
 						rf.leaveFollowerChan <- struct{}{}
 					}
 				}
 			}
 		case Candidate:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,rf.currentTerm,StatusTypeName[Candidate])
+				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
 				// Election timeout
 				// becomes a candidate and starts a new election Term
 				go rf.election()
@@ -413,21 +416,21 @@ func (rf *Raft) MainLoop() {
 				// 选举完成 成为Leader
 				case <-rf.electionDoneChan:
 					{
-						rf.curStatus = Leader
+						atomic.StoreInt32(&rf.curStatus,Leader)
 						// 发送空的附加日志 RPC（心跳）给其他所有的服务器；在一定的空余时间之后不停的重复发送，以阻止跟随者超时
 						rf.sendHeartBeats()
 					}
 				// 转为Follower
 				case <-rf.replyNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
 
 				case <-rf.requestNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
@@ -444,12 +447,12 @@ func (rf *Raft) MainLoop() {
 
 		case Leader:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,rf.currentTerm,StatusTypeName[Leader])
+				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
 				go func() {
 					for {
 						select {
 						case <-time.After(100 * time.Millisecond):{
-							log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tsendHeartBeats",rf.me,rf.currentTerm,StatusTypeName[Leader])
+							log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tsendHeartBeats",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
 							rf.sendHeartBeats()
 						}
 						case <-rf.leaveLeaderChan :{
@@ -461,12 +464,12 @@ func (rf *Raft) MainLoop() {
 				select {
 				case <-rf.requestNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						rf.leaveLeaderChan <- struct{}{}
 					}
 				case <-rf.replyNewerTermChan:
 					{
-						rf.curStatus = Follower
+						atomic.StoreInt32(&rf.curStatus,Follower)
 						rf.leaveLeaderChan <- struct{}{}
 					}
 				}
@@ -487,35 +490,42 @@ func isLogNewer(log1 LogStatus, log2 LogStatus) bool {
 func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 	// Your code here (2A, 2B).
 	// 如果`Term < currentTerm`返回 false
-	if rf.currentTerm > args.Term {
-		*reply = RequestVoteReply{
-			rf.currentTerm, false,
-		}
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
-		return
-	}
 
-	if rf.currentTerm < args.Term {
-		rf.currentTerm = args.Term
-		rf.votedFor = VotedForNone
+	votedFor := atomic.LoadInt32(&rf.votedFor)
+	curStatus := atomic.LoadInt32(&rf.curStatus)
+	currentTerm := atomic.LoadInt32(&rf.currentTerm)
+
+	if currentTerm < args.Term {
+		currentTerm = args.Term
+		votedFor = VotedForNone
+		atomic.StoreInt32(&rf.currentTerm,currentTerm)
+		atomic.StoreInt32(&rf.votedFor,VotedForNone)
 		rf.requestNewerTermChan <- struct{}{}
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 	}
 
+	if currentTerm > args.Term {
+		*reply = RequestVoteReply{
+			currentTerm, false,
+		}
+		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,currentTerm,StatusTypeName[curStatus],args,reply)
+		return
+	}
+
 
 	// 如果 votedFor 为空或者为 CandidateId，并且候选人的日志至少和自己一样新，那么就投票给他
-	if (rf.votedFor == VotedForNone || rf.votedFor == args.CandidateId) && int(args.LastLogIndex) >= len(rf.log)-LogIndexOffset {
-		rf.votedFor = args.CandidateId
+	if (votedFor == VotedForNone || votedFor == args.CandidateId) && int(args.LastLogIndex) >= len(rf.log)-LogIndexOffset {
+		atomic.StoreInt32(&rf.votedFor,args.CandidateId)
 		rf.hasVotedChan <- struct{}{}
 		*reply = RequestVoteReply{
-			rf.currentTerm, true,
+			currentTerm, true,
 		}
 
 		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	*reply = RequestVoteReply{
-		rf.currentTerm, false,
+		currentTerm, false,
 	}
 	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
@@ -615,15 +625,16 @@ func Make(peers []*labrpc.ClientEnd, me int,
 	rf := &Raft{
 		peers: peers,
 		persister: persister,
-		me: me,
+		me: int32(me),
 		curStatus: Follower,
 		votedFor: VotedForNone,
 		log: make([]LogEntries,1),
+		commitIndex: 0,
 		hasVotedChan: make(chan struct{},1),
 		electionDoneChan: make(chan struct{},1),
 		leaveCurElectionChan: make(chan struct{},1),
 		leaveFollowerChan: make(chan struct{},1),
-		voteGrantedChan: make(chan struct{},len(peers)),
+		voteGrantedChan: make(chan int32,len(peers)),
 		requestNewerTermChan: make(chan struct{},len(peers)),
 		replyNewerTermChan: make(chan struct{},len(peers)),
 		curLeaderAppendChan: make(chan struct{},1),
