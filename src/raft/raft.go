@@ -211,8 +211,8 @@ type AppendEntriesReply struct {
 //
 
 func (rf *Raft) waitElectionResult() {
+	voteGranted := 1
 	for {
-		voteGranted := 1
 		select {
 		case <-rf.leaveCurElectionChan:
 			{
