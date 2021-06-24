@@ -18,9 +18,9 @@ package raft
 //
 
 import (
-	"log"
+	log"../debug"
 	"math/rand"
-	"os"
+	//"os"
 	"sync"
 	"time"
 )
@@ -42,10 +42,10 @@ import "../labrpc"
 // ApplyMsg, but set CommandValid to false for these other uses.
 //
 
-func init()  {
-	outfile, _ := os.OpenFile("raft.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
-	log.SetOutput(outfile)
-}
+//func init()  {
+//	outfile, _ := os.OpenFile("raft.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+//	log.SetOutput(outfile)
+//}
 
 type ApplyMsg struct {
 	CommandValid bool
@@ -128,7 +128,7 @@ func (rf *Raft) GetState() (int, bool) {
 	// Your code here (2A).
 	term = int(atomic.LoadInt32(&rf.currentTerm))
 	isleader = atomic.LoadInt32(&rf.curStatus) == Leader
-	//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
+	//log.Printf(log.Info,"S%d\tTerm:%v\tCurState:%v",rf.me,rf.currentTerm,rf.curStatus)
 	return term,isleader
  }
 
@@ -216,7 +216,7 @@ func (rf *Raft) waitElectionResult() {
 		select {
 		case <-rf.leaveCurElectionChan:
 			{
-				//log.Printf("ServerID:%v\tTerm:%v\tCurState:%v\tleaveCurElectionChan",rf.me,rf.currentTerm,rf.curStatus)
+				//log.Printf(log.Info,"S%d\tTerm:%v\tCurState:%v\tleaveCurElectionChan",rf.me,rf.currentTerm,rf.curStatus)
 				return
 			}
 		case term:= <-rf.voteGrantedChan:
@@ -256,16 +256,16 @@ func (rf *Raft) election() {
 		go func(peerId int,args *RequestVoteArgs) {
 			reply := RequestVoteReply{}
 			if rf.sendRequestVote(peerId, args, &reply) != false {
-				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tRequestVoteReply:%v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+				//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\tRequestVoteReply:%v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 				if reply.Term > atomic.LoadInt32(&rf.currentTerm) {
 					atomic.StoreInt32(&rf.currentTerm,reply.Term)
 					atomic.StoreInt32(&rf.votedFor,VotedForNone)
 					rf.replyNewerTermChan <- struct{}{}
-					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
+					//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					return
 				}
 				if reply.VoteGranted {
-					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treply.VoteGranted",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
+					//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treply.VoteGranted",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					rf.voteGrantedChan <- reply.Term
 				}
 			}
@@ -289,18 +289,18 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 		atomic.StoreInt32(&rf.currentTerm,args.Term)
 		atomic.StoreInt32(&rf.votedFor,VotedForNone)
 		rf.requestNewerTermChan <- struct{}{}
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 	}
 
 	if args.Term < currentTerm {
 		*reply = AppendEntriesReply{currentTerm, false}
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	// 2.if log doesn't contain an entry at PrevLogIndex whose Term matches prevLogterm    index = 1 logIndex1 len(log) =2
 	if int(args.PrevLogIndex) > len(rf.log)-LogIndexOffset {
 		*reply = AppendEntriesReply{currentTerm, false}
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 
@@ -311,7 +311,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	if rf.log[args.PrevLogIndex].LogStatus.LogTerm != args.PrevLogTerm {
 		//return // false
 		*reply = AppendEntriesReply{currentTerm, false}
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 
@@ -331,7 +331,7 @@ func (rf *Raft) AppendEntries(args *AppendEntriesArgs, reply *AppendEntriesReply
 	}
 	*reply = AppendEntriesReply{currentTerm, true}
 	rf.curLeaderAppendChan <- struct{}{}
-	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+	//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveAppendEntries:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
 }
 
@@ -350,12 +350,12 @@ func (rf *Raft) sendHeartBeats() {
 		go func(peerId int,args *AppendEntriesArgs) {
 			reply := AppendEntriesReply{}
 			if rf.sendAppendEntries(peerId, args, &reply) != false {
-				//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+				//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\tAppendEntriesReply:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 				if reply.Term > atomic.LoadInt32(&rf.currentTerm){
 					atomic.StoreInt32(&rf.currentTerm,reply.Term)
 					atomic.StoreInt32(&rf.votedFor,VotedForNone)
 					rf.replyNewerTermChan <- struct{}{}
-					//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
+					//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treplyNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 					return
 				}
 			}
@@ -365,12 +365,12 @@ func (rf *Raft) sendHeartBeats() {
 }
 
 func (rf *Raft) MainLoop() {
-	log.Printf("ServerID:%v\tTerm:%v\tMainLoop Start",rf.me,atomic.LoadInt32(&rf.currentTerm))
+	log.Printf(log.Info,"S%d\tTerm:%v\tMainLoop Start",rf.me,atomic.LoadInt32(&rf.currentTerm))
 	for {
 		switch atomic.LoadInt32(&rf.curStatus) {
 		case Follower:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Follower])
+				log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Follower])
 				select {
 				//接收当前领导人的心跳\附加日志 任期需大于等于当前任期
 				case <-rf.replyNewerTermChan:
@@ -396,7 +396,7 @@ func (rf *Raft) MainLoop() {
 				// Candidate status
 				case <-time.After((time.Duration(rand.Int63n(ElectionTimeoutSectionStart)) + ElectionTimeoutSectionDuration) * time.Millisecond):
 					{
-						log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tElectionTimeout",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
+						log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\tElectionTimeout",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
 						atomic.StoreInt32(&rf.curStatus,Candidate)
 						rf.leaveFollowerChan <- struct{}{}
 					}
@@ -404,7 +404,7 @@ func (rf *Raft) MainLoop() {
 			}
 		case Candidate:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
+				log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Candidate])
 				// Election timeout
 				// becomes a candidate and starts a new election Term
 				go rf.election()
@@ -424,14 +424,14 @@ func (rf *Raft) MainLoop() {
 				case <-rf.replyNewerTermChan:
 					{
 						atomic.StoreInt32(&rf.curStatus,Follower)
-						log.Println("Candidate rf.curStatus = Follower")
+						//log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
 
 				case <-rf.requestNewerTermChan:
 					{
 						atomic.StoreInt32(&rf.curStatus,Follower)
-						log.Println("Candidate rf.curStatus = Follower")
+						//log.Println("Candidate rf.curStatus = Follower")
 						rf.leaveCurElectionChan <- struct{}{}
 					}
 
@@ -447,12 +447,12 @@ func (rf *Raft) MainLoop() {
 
 		case Leader:
 			{
-				log.Printf("ServerID:%v\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
+				log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
 				go func() {
 					for {
 						select {
 						case <-time.After(100 * time.Millisecond):{
-							log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\tsendHeartBeats",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
+							log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\tsendHeartBeats",rf.me,atomic.LoadInt32(&rf.currentTerm),StatusTypeName[Leader])
 							rf.sendHeartBeats()
 						}
 						case <-rf.leaveLeaderChan :{
@@ -501,14 +501,14 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 		atomic.StoreInt32(&rf.currentTerm,currentTerm)
 		atomic.StoreInt32(&rf.votedFor,VotedForNone)
 		rf.requestNewerTermChan <- struct{}{}
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\trequestNewerTermChan",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus])
 	}
 
 	if currentTerm > args.Term {
 		*reply = RequestVoteReply{
 			currentTerm, false,
 		}
-		log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,currentTerm,StatusTypeName[curStatus],args,reply)
+		log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,currentTerm,StatusTypeName[curStatus],args,reply)
 		return
 	}
 
@@ -521,13 +521,13 @@ func (rf *Raft) RequestVote(args *RequestVoteArgs, reply *RequestVoteReply) {
 			currentTerm, true,
 		}
 
-		//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+		//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 		return
 	}
 	*reply = RequestVoteReply{
 		currentTerm, false,
 	}
-	//log.Printf("ServerID:%v\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
+	//log.Printf(log.Info,"S%d\tTerm:%v\tStatus:%v\treceiveRequestVote:%+v\t%+v",rf.me,rf.currentTerm,StatusTypeName[rf.curStatus],args,reply)
 	return
 }
 
@@ -640,7 +640,7 @@ func Make(peers []*labrpc.ClientEnd, me int,
 		curLeaderAppendChan: make(chan struct{},1),
 	}
 	rf.log = append(rf.log, struct{ LogStatus LogStatus }{LogStatus: LogStatus{0,rf.currentTerm}})
-	log.Println("rf.me:", me)
+	//log.Println("rf.me:", me)
 
 	go rf.MainLoop()
 	// Your initialization code here (2A, 2B, 2C).
