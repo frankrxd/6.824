@@ -1,4 +1,4 @@
-package raft
+package debug
 
 import (
 	"fmt"
@@ -8,7 +8,6 @@ import (
 	"time"
 )
 
-// Retrieve the verbosity level from an environment variable
 func getVerbosity() int {
 	v := os.Getenv("VERBOSE")
 	level := 0
@@ -25,22 +24,22 @@ func getVerbosity() int {
 type logTopic string
 
 const (
-	Client   logTopic = "CLNT"
-	dCommit  logTopic = "CMIT"
-	dDrop    logTopic = "DROP"
-	dError   logTopic = "ERRO"
-	Info     logTopic = "INFO"
-	Leader   logTopic = "LEAD"
-	dLog     logTopic = "LOG1"
-	dLog2    logTopic = "LOG2"
-	dPersist logTopic = "PERS"
-	dSnap    logTopic = "SNAP"
-	dTerm    logTopic = "TERM"
-	dTest    logTopic = "TEST"
-	Timer    logTopic = "TIMR"
-	dTrace   logTopic = "TRCE"
-	Vote     logTopic = "VOTE"
-	dWarn    logTopic = "WARN"
+	DClient  logTopic = "CLNT"
+	DCommit  logTopic = "CMIT"
+	DDrop    logTopic = "DROP"
+	DError   logTopic = "ERRO"
+	DInfo    logTopic = "INFO"
+	DLeader  logTopic = "LEAD"
+	DLog     logTopic = "LOG1"
+	DLog2    logTopic = "LOG2"
+	DPersist logTopic = "PERS"
+	DSnap    logTopic = "SNAP"
+	DTerm    logTopic = "TERM"
+	DTest    logTopic = "TEST"
+	DTimer   logTopic = "TIMR"
+	DTrace   logTopic = "TRCE"
+	DVote    logTopic = "VOTE"
+	DWarn    logTopic = "WARN"
 )
 
 var debugStart time.Time
@@ -49,11 +48,15 @@ var debugVerbosity int
 func init() {
 	debugVerbosity = getVerbosity()
 	debugStart = time.Now()
-
 	log.SetFlags(log.Flags() &^ (log.Ldate | log.Ltime))
 }
 
-func Infof(topic logTopic, format string, a ...interface{}) {
+//func init()  {
+//	outfile, _ := os.OpenFile("raft.log", os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666)
+//	log.SetOutput(outfile)
+//}
+
+func Printf(topic logTopic, format string, a ...interface{}) {
 	if debugVerbosity >= 1 {
 		time := time.Since(debugStart).Microseconds()
 		time /= 100

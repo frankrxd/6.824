@@ -8,7 +8,10 @@ package raft
 // test with the original before submitting.
 //
 
-import "testing"
+import (
+	log"../debug"
+	"testing"
+)
 import "fmt"
 import "time"
 import "math/rand"
@@ -102,7 +105,7 @@ func TestBasicAgree2B(t *testing.T) {
 
 		xindex := cfg.one(index*100, servers, false)
 		if xindex != index {
-			t.Fatalf("got index %v but expected %v", xindex, index)
+			t.Fatalf("got indexStart %v but expected %v", xindex, index)
 		}
 	}
 
@@ -129,7 +132,7 @@ func TestRPCBytes2B(t *testing.T) {
 		cmd := randstring(5000)
 		xindex := cfg.one(cmd, servers, false)
 		if xindex != index {
-			t.Fatalf("got index %v but expected %v", xindex, index)
+			t.Fatalf("got indexStart %v but expected %v", xindex, index)
 		}
 		sent += int64(len(cmd))
 	}
@@ -184,11 +187,13 @@ func TestFailNoAgree2B(t *testing.T) {
 	defer cfg.cleanup()
 
 	cfg.begin("Test (2B): no agreement if too many followers disconnect")
-
+	//fmt.Println("cfg.one(10, servers, false)")
 	cfg.one(10, servers, false)
 
 	// 3 of 5 followers disconnect
+	//fmt.Println("leader := cfg.checkOneLeader()")
 	leader := cfg.checkOneLeader()
+	//fmt.Println("disconnect")
 	cfg.disconnect((leader + 1) % servers)
 	cfg.disconnect((leader + 2) % servers)
 	cfg.disconnect((leader + 3) % servers)
@@ -198,7 +203,7 @@ func TestFailNoAgree2B(t *testing.T) {
 		t.Fatalf("leader rejected Start()")
 	}
 	if index != 2 {
-		t.Fatalf("expected index 2, got %v", index)
+		t.Fatalf("expected indexStart 2, got %v", index)
 	}
 
 	time.Sleep(2 * RaftElectionTimeout)
@@ -214,14 +219,14 @@ func TestFailNoAgree2B(t *testing.T) {
 	cfg.connect((leader + 3) % servers)
 
 	// the disconnected majority may have chosen a leader from
-	// among their own ranks, forgetting index 2.
+	// among their own ranks, forgetting indexStart 2.
 	leader2 := cfg.checkOneLeader()
 	index2, _, ok2 := cfg.rafts[leader2].Start(30)
 	if ok2 == false {
 		t.Fatalf("leader2 rejected Start()")
 	}
 	if index2 < 2 || index2 > 3 {
-		t.Fatalf("unexpected index %v", index2)
+		t.Fatalf("unexpected indexStart %v", index2)
 	}
 
 	cfg.one(1000, servers, true)
@@ -330,6 +335,78 @@ loop:
 	cfg.end()
 }
 
+func Test2E(t *testing.T) {
+	servers := 3
+	cfg := make_config(t, servers, false)
+	defer cfg.cleanup()
+
+	cfg.begin("Test (2B): rejoin of partitioned leader")
+
+	cfg.one(101, servers, true)
+
+	// leader network failure
+	leader1 := cfg.checkOneLeader()
+	log.Printf(log.DTest,"S%d disconnect",leader1)
+	cfg.disconnect(leader1)
+
+	// make old leader try to agree on some Entries
+	cfg.rafts[leader1].Start(102)
+	cfg.rafts[leader1].Start(103)
+	cfg.rafts[leader1].Start(104)
+
+	//// new leader commits, also for indexStart=2
+	cfg.one(103, 2, true)
+	//
+	//// new leader network failure
+	leader2 := cfg.checkOneLeader()
+	log.Printf(log.DLeader,"S%d disconnect",leader2)
+	cfg.disconnect(leader2)
+	//
+	//// old leader connected again
+	log.Printf(log.DLeader,"S%d reconnect",leader1)
+	cfg.connect(leader1)
+	cfg.one(104, 2, true)
+	//// all together now
+	//cfg.connect(leader2)
+	//cfg.one(105, servers, true)
+
+	cfg.end()
+}
+func TestFailAgree2E(t *testing.T) {
+	servers := 3
+	cfg := make_config(t, servers, false)
+	defer cfg.cleanup()
+
+	cfg.begin("Test (2B): agreement despite follower disconnection")
+
+	cfg.one(101, servers, false)
+
+	// disconnect one follower from the network.
+	leader := cfg.checkOneLeader()
+	cfg.disconnect((leader + 1) % servers)
+
+	// the leader and remaining follower should be
+	// able to agree despite the disconnected follower.
+	cfg.one(102, servers-1, false)
+	cfg.one(103, servers-1, false)
+	time.Sleep(RaftElectionTimeout)
+	cfg.one(104, servers-1, false)
+	cfg.one(105, servers-1, false)
+
+	// re-connect
+	cfg.connect((leader + 1) % servers)
+
+	// the full set of servers should preserve
+	// previous agreements, and be able to agree
+	// on new commands.
+	cfg.one(106, servers, true)
+	time.Sleep(RaftElectionTimeout)
+	cfg.one(107, servers, true)
+
+	cfg.end()
+}
+
+
 func TestRejoin2B(t *testing.T) {
 	servers := 3
 	cfg := make_config(t, servers, false)
@@ -348,7 +425,7 @@ func TestRejoin2B(t *testing.T) {
 	cfg.rafts[leader1].Start(103)
 	cfg.rafts[leader1].Start(104)
 
-	// new leader commits, also for index=2
+	// new leader commits, also for indexStart=2
 	cfg.one(103, 2, true)
 
 	// new leader network failure
@@ -505,7 +582,7 @@ loop:
 					// Term changed -- try again
 					continue loop
 				}
-				t.Fatalf("wrong value %v committed for index %v; expected %v\n", cmd, starti+i, cmds)
+				t.Fatalf("wrong value %v committed for indexStart %v; expected %v\n", cmd, starti+i, cmds)
 			}
 		}
 

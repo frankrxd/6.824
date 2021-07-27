@@ -7,9 +7,18 @@ import (
 )
 
 type HelloCall int
+type HelloStruct struct {
+	ID   int
+	Term int
+}
+type HelloArgs struct {
+	Info []HelloStruct
+	Cmd  interface{}
+}
 
-func (t *HelloCall) Hello(args *string, reply *string) error {
-	*reply = "Hello," + *args + "!"
+func (t *HelloCall) Hello(args *HelloArgs, reply *string) error {
+	fmt.Println(*args)
+	*reply = "Hello"
 	return nil
 }
 
